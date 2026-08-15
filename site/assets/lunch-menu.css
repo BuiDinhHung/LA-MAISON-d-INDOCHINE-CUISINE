@@ -1,0 +1,257 @@
+#w-w2xhoks1 {
+  height: auto !important;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#w-w2xhoks1 .section-wrapper,
+#w-w2xhoks1 .section-container {
+  height: auto !important;
+}
+
+#w-w2xhoks1 .section-container {
+  position: relative;
+  z-index: 1;
+}
+
+.lunch-menu {
+  width: min(1080px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 72px 0 84px;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: 'Hepta Slab', serif;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, .75);
+}
+
+.lunch-menu__header {
+  max-width: 880px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+
+.lunch-menu__cloud {
+  width: min(560px, 82%);
+  margin: -38px auto 8px;
+  opacity: 0;
+  transform: translateY(28px) scale(.92);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.lunch-menu__cloud.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.lunch-menu__cloud img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: lunch-cloud-float 5s ease-in-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(224, 151, 31, .18));
+}
+
+@keyframes lunch-cloud-float {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 10px 18px rgba(224, 151, 31, .18));
+  }
+  50% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 14px 24px rgba(255, 190, 61, .32));
+  }
+}
+
+.lunch-menu__eyebrow {
+  margin: 0 0 8px;
+  color: #ff9a29;
+  font-size: 17px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.lunch-menu h2 {
+  margin: 0 0 12px;
+  color: #ffcf70;
+  font-family: 'SVN-Notulen-Serif-Display-ExtraBold-.otf', serif;
+  font-size: 64px;
+  line-height: 1;
+}
+
+.lunch-menu__intro {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.lunch-menu__intro strong {
+  color: #fff2d2;
+}
+
+.lunch-menu__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 56px;
+}
+
+.lunch-menu__item {
+  position: relative;
+  padding: 22px 0 24px 58px;
+  border-top: 1px solid rgba(255, 207, 112, .32);
+}
+
+.lunch-menu__number {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(255, 207, 112, .7);
+  border-radius: 50%;
+  color: #ffcf70;
+  font-weight: 700;
+}
+
+.lunch-menu__item h3 {
+  margin: 0 0 8px;
+  color: #ffcf70;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.lunch-menu__item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.lunch-menu__price {
+  float: right;
+  margin-left: 16px;
+  color: #fff2d2;
+}
+
+.lunch-menu__photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 48px 0 34px;
+}
+
+.lunch-menu__photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #171512;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .36);
+}
+
+.lunch-menu__photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.lunch-menu__photo:hover img {
+  transform: scale(1.035);
+}
+
+.lunch-menu__photo figcaption {
+  padding: 14px 18px 16px;
+  color: #ffcf70;
+  font-size: 15px;
+}
+
+.lunch-menu__note {
+  margin: 0;
+  padding: 22px 28px;
+  border-top: 1px solid rgba(255, 207, 112, .55);
+  border-bottom: 1px solid rgba(255, 207, 112, .55);
+  color: #fff2d2;
+  font-size: 16px;
+  line-height: 1.65;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  #w-w2xhoks1 {
+    padding: 0;
+  }
+
+  .lunch-menu {
+    width: calc(100% - 32px);
+    padding: 50px 0 64px;
+  }
+
+  .lunch-menu__header {
+    margin-bottom: 36px;
+  }
+
+  .lunch-menu__cloud {
+    width: 92%;
+    margin-top: -22px;
+  }
+
+  .lunch-menu__eyebrow {
+    font-size: 13px;
+  }
+
+  .lunch-menu h2 {
+    font-size: 45px;
+  }
+
+  .lunch-menu__intro {
+    font-size: 14px;
+  }
+
+  .lunch-menu__grid,
+  .lunch-menu__photos {
+    grid-template-columns: 1fr;
+  }
+
+  .lunch-menu__grid {
+    gap: 0;
+  }
+
+  .lunch-menu__item {
+    padding: 19px 0 21px 50px;
+  }
+
+  .lunch-menu__number {
+    top: 18px;
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+  }
+
+  .lunch-menu__item h3 {
+    font-size: 18px;
+  }
+
+  .lunch-menu__item p,
+  .lunch-menu__photo figcaption,
+  .lunch-menu__note {
+    font-size: 13px;
+  }
+
+  .lunch-menu__photos {
+    gap: 18px;
+    margin-top: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunch-menu__cloud {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .lunch-menu__cloud img {
+    animation: none;
+  }
+}
