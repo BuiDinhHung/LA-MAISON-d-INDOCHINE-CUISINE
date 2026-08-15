@@ -78,11 +78,18 @@
       </header>`
     : '';
 
+  // Ảnh chung của nhóm (sashimi, nigiri, maki…) đứng ngay đầu nhóm đó.
+  const groupStrip = group => group.strip?.length
+    ? `<div class="mgroup__strip">${group.strip.map(src =>
+        `<img src="assets/${esc(src)}" alt="" loading="lazy" decoding="async">`).join('')}</div>`
+    : '';
+
   // Một bố cục thống nhất giúp thực đơn gọn hơn; ảnh chỉ nằm cạnh đúng món có ảnh.
   const groupBody = group => `<div class="row-list">${group.items.map(listRow).join('')}</div>`;
 
   const groupBlock = group => `<section class="mgroup reveal">
     ${groupHead(group)}
+    ${groupStrip(group)}
     ${groupBody(group)}
   </section>`;
 

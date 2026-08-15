@@ -45,9 +45,9 @@ const MENU = [
             desc: 'Cremiges rotes Thai-Curry mit Kokosmilch, frischem Gemüse und Thai-Basilikum' },
           { name: 'LA MAISON TERIYAKI', sub: '(knusprige Ente)', price: '16,90', img: 'dish-09.webp', star: true,
             desc: 'Marktfrisches Gemüse in Teriyaki-Soße mit knuspriger Ente' },
-          { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', star: true,
+          { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', img: 'dish-26.webp', cover: true, star: true,
             desc: 'Tempura-Garnele mit Avocado, Gurke und Tobiko, getoppt mit flambiertem Lachs und La Maison Soße' },
-          { code: 'S61', name: 'CRUNCHY CHICKEN', price: '6,90', star: true,
+          { code: 'S61', name: 'CRUNCHY CHICKEN', price: '6,90', img: 'dish-23.webp', star: true,
             desc: 'Knusprig panierte Rolle mit Hähnchen, Avocado und Gurke.' }
         ]
       },
@@ -95,7 +95,7 @@ const MENU = [
             variants: [['a. TOM YAM GAI · mit Hähnchen', '5,90'], ['b. TOM YAM GUNG · mit Garnelen', '6,50'], ['c. TOM YAM TOFU 🌿 · mit Bio-Tofu', '5,50']] },
           { code: '03', name: 'SUP HOANH THANH', price: '5,90',
             desc: 'Wantansuppe mit hausgemachten Teigtaschen, gefüllt mit Hähnchen und Garnelen, dazu Pak Choi und frischem Koriander.' },
-          { code: '04', name: 'PHO HANOI', sub: '(kleine Portion)', img: 'dish-19.webp',
+          { code: '04', name: 'PHO HANOI', sub: '(kleine Portion)', img: 'dish-07.webp',
             desc: 'Vietnams berühmte Reisnudelsuppe aus Nordvietnam. Klare, aromatische Brühe, langsam gekocht mit Sternanis, Zimt und frischem Ingwer, serviert mit Reisbandnudeln und frischen Kräutern.',
             variants: [['a. PHO BO (klein) · mit Rindfleisch', '6,50'], ['b. PHO GA (klein) · mit Hähnchen', '5,90'], ['c. PHO CHAY (klein) · mit Tofu und Pak Choi Gemüse', '5,50']] }
         ]
@@ -113,14 +113,13 @@ const MENU = [
       {
         title: 'Klassische Vorspeisen',
         layout: 'list',
-        strip: ['dish-32.webp', 'dish-06.webp'],
         items: [
           { code: '11', name: 'GOI CUON', sub: '(Sommerrollen – 2 Stk.)', star: true,
             desc: 'Frische Sommerrollen mit Reisnudeln, Salat und Koriander, dazu hausgemachte Hoisin-Sauce, wahlweise mit:',
             variants: [['a) Hähnchen', '5,90'], ['b) Garnelen', '6,50']] },
           { code: '12', name: 'NEM HANOI', sub: '(2 Stk.)', price: '5,90',
             desc: 'Traditionelle vietnamesische Frühlingsrollen im knusprigen Reispapier mit Hähnchen, Garnelen, Glasnudeln und Gemüse, dazu hausgemachtes Nuoc-Cham-Dip' },
-          { code: '13', name: 'THAI CHICKEN SATAY', sub: '(2 Spieße)', price: '6,90',
+          { code: '13', name: 'THAI CHICKEN SATAY', sub: '(2 Spieße)', price: '6,90', img: 'dish-06.webp',
             desc: 'Satay Hähnchenspieße in Erdnuss Soße' },
           { code: '14', name: 'EBI TEMPURA', sub: '(3 Stk.)', price: '6,50',
             desc: 'Knusprig ausgebackene Garnelen im Tempura-Teig' },
@@ -145,7 +144,6 @@ const MENU = [
       {
         title: 'Vegetarische Vorspeisen',
         layout: 'list',
-        strip: ['dish-32.webp'],
         items: [
           { code: '20', name: 'EDAMAME', price: '5,50', tags: ['veg'], desc: 'Gekochte grüne Sojabohnen mit Meersalz' },
           { code: '21', name: 'MINI FRÜHLINGSROLLEN', sub: '(8 Stk.)', price: '4,90', tags: ['veg'], desc: 'Knusprig frittierte Mini-Frühlingsrollen mit Gemüsefüllung' },
@@ -200,6 +198,7 @@ const MENU = [
         title: 'Wok Spezialitäten',
         note: 'Alle Gerichte werden mit Jasminreis serviert',
         layout: 'list',
+        strip: ['dish-11.webp'],
         items: [
           { code: '35', name: 'GA XAO HAT DIEU', price: '15,90',
             desc: 'Zart gebratenes Hähnchen mit Pak Choi, Paprika, Karotten, Zucchini und Cashewnüssen' },
@@ -323,7 +322,7 @@ const MENU = [
         title: 'Spezial Rolls',
         note: '5 Stück · perfekt zum Kombinieren',
         layout: 'list',
-        strip: ['dish-34.webp', 'dish-30.webp'],
+        strip: ['dish-34.webp'],
         items: [
           { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', star: true,
             desc: 'Empfehlung des Hauses · Tempura-Garnele · Avocado · Gurke · Tobiko, getoppt mit flambiertem Lachs und hausgemachter La Maison Soße' },
@@ -345,7 +344,7 @@ const MENU = [
         title: 'Big Crunchy Rolls',
         note: '6 große Stück · unsere beliebten Klassiker, serviert mit hausgemachter La Maison Soße',
         layout: 'list',
-        strip: ['dish-26.webp', 'dish-22.webp'],
+        strip: ['dish-22.webp'],
         items: [
           { code: 'S61', name: 'CRUNCHY CHICKEN', price: '6,90',
             desc: 'Knusprig panierte Rolle mit Hähnchen, Avocado und Gurke' },
@@ -372,7 +371,7 @@ const MENU = [
       {
         title: 'Small Sets',
         layout: 'list',
-        strip: ['dish-25.webp', 'dish-37.webp'],
+        strip: ['dish-25.webp', 'dish-35.webp'],
         items: [
           { name: 'Sake Set', price: '13,90',
             contents: [{ items: ['4 Sake Nigiri', '6 Sake Maki'] }] },
