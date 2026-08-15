@@ -13,20 +13,20 @@
 
 /* ---------- Design-Tokens ---------- */
 :root{
-  --ink:#082e2b;
-  --ink-soft:#0d3935;
-  --card:rgba(7,39,36,.76);
-  --card-solid:#0d3935;
-  --line:rgba(214,178,109,.24);
-  --line-strong:rgba(214,178,109,.52);
+  --ink:#291313;
+  --ink-soft:#3a1d1c;
+  --card:rgba(58,29,28,.76);
+  --card-solid:#3a1d1c;
+  --line:rgba(218,177,99,.24);
+  --line-strong:rgba(218,177,99,.52);
 
-  --gold:#e4c07a;
-  --gold-deep:#bd8f42;
-  --amber:#c85c43;
-  --cream:#fff8ea;
-  --text:rgba(255,248,234,.84);
-  --text-dim:rgba(255,248,234,.62);
-  --red:#9e3d34;
+  --gold:#e0b96d;
+  --gold-deep:#b98338;
+  --amber:#d66f50;
+  --cream:#fff4df;
+  --text:rgba(255,244,223,.86);
+  --text-dim:rgba(255,244,223,.64);
+  --red:#9d3f35;
 
   --display:"Notulen Display","Cinzel",Georgia,serif;
   --serif:"Cinzel",Georgia,"Times New Roman",serif;
@@ -44,7 +44,7 @@ html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:cal
 body{
   margin:0;
   background-color:var(--ink);
-  background-image:linear-gradient(rgba(5,34,32,.92),rgba(5,34,32,.92)),url("a065.webp");
+  background-image:linear-gradient(rgba(39,17,17,.93),rgba(39,17,17,.93)),url("a065.webp");
   background-size:auto,760px auto;
   background-attachment:fixed,fixed;
   color:var(--text);
@@ -367,13 +367,13 @@ ul{margin:0;padding:0;list-style:none}
    Vollständige Speisekarte
    Kategorie-Navigation und kompakte Gerichtslisten
    ========================================================================== */
-.full-menu{padding-top:clamp(72px,9vw,118px);border-top:1px solid var(--line);background:rgba(4,31,29,.45)}
+.full-menu{padding-top:clamp(72px,9vw,118px);border-top:1px solid var(--line);background:rgba(24,9,9,.38)}
 .full-menu__intro{padding-bottom:clamp(30px,4vw,46px)}
 
 /* ---------- Sticky Navigation + Filter ---------- */
 .full-menu-nav{
   position:sticky;top:var(--nav-h);z-index:55;
-  background:rgba(6,38,35,.96);border-block:1px solid var(--line);
+  background:rgba(42,18,18,.96);border-block:1px solid var(--line);
   backdrop-filter:blur(10px);
 }
 .full-menu-nav__inner{
@@ -392,7 +392,7 @@ ul{margin:0;padding:0;list-style:none}
   transition:color .2s,background .2s;
 }
 .full-menu-nav a:hover{color:var(--cream);background:rgba(228,192,122,.1)}
-.full-menu-nav a.is-active{color:#183c38;background:var(--gold)}
+.full-menu-nav a.is-active{color:#351817;background:var(--gold)}
 .full-menu-nav__filters{display:flex;flex:none;gap:6px;padding-left:clamp(8px,1.5vw,18px);border-left:1px solid var(--line)}
 .full-menu-nav__filters button{
   padding:7px 13px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;
@@ -400,7 +400,7 @@ ul{margin:0;padding:0;list-style:none}
   transition:color .2s,background .2s,border-color .2s;
 }
 .full-menu-nav__filters button:hover{color:var(--cream);border-color:var(--line-strong)}
-.full-menu-nav__filters button.is-active{color:#183c38;background:var(--gold);border-color:var(--gold)}
+.full-menu-nav__filters button.is-active{color:#351817;background:var(--gold);border-color:var(--gold)}
 
 /* ---------- Kategorie ---------- */
 .menu-body{width:min(var(--shell),100% - var(--gutter)*2);margin:auto}
@@ -796,15 +796,15 @@ ul{margin:0;padding:0;list-style:none}
 
 /* New editorial layout */
 .hero{min-height:100svh;display:grid;align-items:center;padding-bottom:clamp(50px,7vw,82px)}
-.hero__bg::after{background:linear-gradient(90deg,rgba(3,25,24,.94) 0%,rgba(3,25,24,.7) 46%,rgba(3,25,24,.26) 100%),linear-gradient(0deg,var(--ink) 0%,transparent 34%)}
+.hero__bg::after{background:linear-gradient(90deg,rgba(35,12,12,.95) 0%,rgba(35,12,12,.72) 46%,rgba(35,12,12,.26) 100%),linear-gradient(0deg,var(--ink) 0%,transparent 34%)}
 .hero__inner{text-align:left}
 .hero__kicker,.hero__sub{margin-left:0;margin-right:0}
 .hero__sub{max-width:48ch}
 .hero__cta,.hero__facts{justify-content:flex-start}
 .intro-copy{margin-top:26px}
-.section--jade{background:#0d3935;border-block:1px solid var(--line)}
-.section--paper{background:#f1e8d4;color:#173c38}
-.section--paper .title{color:#173c38}
+.section--jade{background:#3a1d1c;border-block:1px solid var(--line)}
+.section--paper{background:#f2e4ca;color:#4a2420}
+.section--paper .title{color:#4a2420}
 .section--paper .eyebrow{color:#a54839}
 .food-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(34px,4vw,62px) clamp(18px,3vw,38px);margin-top:clamp(40px,6vw,72px)}
 .food{text-align:center;min-width:0}
@@ -819,6 +819,8 @@ ul{margin:0;padding:0;list-style:none}
 .contact__image{margin:0;overflow:hidden;border-radius:2px 80px 2px 2px;border:1px solid var(--line)}
 .contact__image img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .contact__image:hover img{transform:scale(1.035)}
+.contact__map{min-height:430px;overflow:hidden;border:1px solid var(--line-strong);border-radius:2px 80px 2px 2px;background:var(--card-solid);box-shadow:0 28px 60px rgba(12,4,4,.24)}
+.contact__map iframe{display:block;width:100%;height:100%;min-height:430px;border:0;filter:sepia(.12) saturate(.82) contrast(1.04)}
 .contact__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .footer{padding-top:10px}
 .nav__logo img{filter:drop-shadow(0 5px 10px rgba(0,0,0,.35))}
@@ -827,6 +829,7 @@ ul{margin:0;padding:0;list-style:none}
   .food-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hours__list li{display:grid;gap:2px}
   .hours__list span{white-space:normal}
+  .contact__map,.contact__map iframe{min-height:360px}
 }
 @media (max-width:560px){
   :root{--nav-h:68px}
