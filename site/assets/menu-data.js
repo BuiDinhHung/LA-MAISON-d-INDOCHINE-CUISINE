@@ -35,9 +35,9 @@ const MENU = [
         note: 'Empfehlung des Hauses',
         layout: 'cards',
         items: [
-          { name: 'PHO BO', sub: '(mit Rindfleisch)', price: '15,90', img: 'dish-20.webp', star: true,
+          { name: 'PHO BO', sub: '(mit Rindfleisch)', price: '15,90', img: 'dish-pho-bo.webp', star: true,
             desc: 'Traditionelle vietnamesische Reisnudelsuppe mit aromatischer Brühe, Reisbandnudeln, zartem Rindfleisch und frischen Kräutern' },
-          { name: 'BUN BO NAM BO', price: '15,90', star: true,
+          { name: 'BUN BO NAM BO', price: '15,90', img: 'dish-bun-bo-nam-bo.webp', star: true,
             desc: 'Vietnamesische Reisnudeln mit gebratener Rinderhüfte, frischen Kräutern, Röstzwiebeln und Limetten-Dressing' },
           { name: 'Bo Xao Bo Toi', price: '18,90', star: true,
             desc: 'Zart gebratenes Rindfleisch mit aromatischer Knoblauchbutter, Paprika und Brokkoli, serviert auf heißer Pfanne' },
@@ -114,10 +114,10 @@ const MENU = [
         title: 'Klassische Vorspeisen',
         layout: 'list',
         items: [
-          { code: '11', name: 'GOI CUON', sub: '(Sommerrollen – 2 Stk.)', star: true,
+          { code: '11', name: 'GOI CUON', sub: '(Sommerrollen – 2 Stk.)', img: 'dish-goi-cuon.webp', star: true,
             desc: 'Frische Sommerrollen mit Reisnudeln, Salat und Koriander, dazu hausgemachte Hoisin-Sauce, wahlweise mit:',
             variants: [['a) Hähnchen', '5,90'], ['b) Garnelen', '6,50']] },
-          { code: '12', name: 'NEM HANOI', sub: '(2 Stk.)', price: '5,90',
+          { code: '12', name: 'NEM HANOI', sub: '(2 Stk.)', price: '5,90', img: 'dish-nem-ran.webp',
             desc: 'Traditionelle vietnamesische Frühlingsrollen im knusprigen Reispapier mit Hähnchen, Garnelen, Glasnudeln und Gemüse, dazu hausgemachtes Nuoc-Cham-Dip' },
           { code: '13', name: 'THAI CHICKEN SATAY', sub: '(2 Spieße)', price: '6,90', img: 'dish-06.webp',
             desc: 'Satay Hähnchenspieße in Erdnuss Soße' },
@@ -145,9 +145,9 @@ const MENU = [
         title: 'Vegetarische Vorspeisen',
         layout: 'list',
         items: [
-          { code: '20', name: 'EDAMAME', price: '5,50', tags: ['veg'], desc: 'Gekochte grüne Sojabohnen mit Meersalz' },
+          { code: '20', name: 'EDAMAME', price: '5,50', img: 'dish-edamame.webp', tags: ['veg'], desc: 'Gekochte grüne Sojabohnen mit Meersalz' },
           { code: '21', name: 'MINI FRÜHLINGSROLLEN', sub: '(8 Stk.)', price: '4,90', tags: ['veg'], desc: 'Knusprig frittierte Mini-Frühlingsrollen mit Gemüsefüllung' },
-          { code: '22', name: 'GYOZA', sub: '(4 Stk.)', price: '5,90', tags: ['veg'], desc: 'Knusprig gebratene Teigtaschen mit Gemüsefüllung' },
+          { code: '22', name: 'GYOZA', sub: '(4 Stk.)', price: '5,90', img: 'dish-gyoza.webp', tags: ['veg'], desc: 'Knusprig gebratene Teigtaschen mit Gemüsefüllung' },
           { code: '23', name: 'GOI CUON CHAY', sub: '(2 Stk.)', price: '5,50', tags: ['veg'],
             desc: 'Frische Sommerrollen mit Bio-Tofu, Reisnudeln, Salat und Kräutern, dazu Hoisin-Soße' }
         ]
@@ -198,7 +198,7 @@ const MENU = [
         title: 'Wok Spezialitäten',
         note: 'Alle Gerichte werden mit Jasminreis serviert',
         layout: 'list',
-        strip: ['dish-11.webp'],
+        strip: ['dish-wok-special.webp'],
         items: [
           { code: '35', name: 'GA XAO HAT DIEU', price: '15,90',
             desc: 'Zart gebratenes Hähnchen mit Pak Choi, Paprika, Karotten, Zucchini und Cashewnüssen' },
@@ -234,13 +234,13 @@ const MENU = [
           { code: '41', name: 'BUN SAIGON', sub: '(Vietnamesische Reisnudel-Bowl aus Südvietnam)', img: 'dish-05.webp',
             desc: 'Bún ist ein klassisches vietnamesisches Reisnudelgericht. Serviert mit frischem Salat, Kräutern, Sojasprossen, Röstzwiebeln, gerösteten Erdnüssen und hausgemachtem Limetten-Dressing.',
             variants: [['a. BUN BO NAM BO · mit zart gebratener Rinderhüfte', '15,90'], ['b. BUN NEM · mit knusprigen vietnamesischen Frühlingsrollen mit Hähnchen, Garnelen, Glasnudeln und Gemüse', '14,90'], ['c. BUN CHA LA LOT · gegrillte Rindfleischröllchen in Betelblättern', '15,90'], ['d. BUN VIT · mit knuspriger Ente', '16,90']] },
-          { code: '42', name: 'PAD THAI', sub: '(Thailands berühmtes Nudelgericht)', img: 'dish-16.webp',
+          { code: '42', name: 'PAD THAI', sub: '(Thailands berühmtes Nudelgericht)', img: 'dish-pad-thai.webp',
             desc: 'Gebratene Reisbandnudeln in aromatischer Tamarinden-Soße mit Ei, Lauchzwiebeln, Sojasprossen, Thai-Basilikum, frischen Kräutern, gerösteten Erdnüssen und einer Scheibe Limette',
             variants: [['a. PAD THAI GAI · mit gebratenem Hähnchen', '15,90'], ['b. PAD THAI PED · mit knuspriger Ente', '17,90'], ['c. PAD THAI GUNG · mit Garnelen', '17,90']] },
-          { code: '43', name: 'MI XAO', sub: '(Vietnamesische gebratene Nudeln)', img: 'dish-08.webp',
+          { code: '43', name: 'MI XAO', sub: '(Vietnamesische gebratene Nudeln)', img: 'dish-mi-xao-ga.webp',
             desc: 'Im Wok gebratene Weizennudeln mit frischem Gemüse und Koriander nach vietnamesischer Art',
             variants: [['a. MI XAO GA · mit gebratenem Hähnchen', '14,90'], ['b. MI XAO GA CHIEN · mit knusprigem Hähnchen', '15,90'], ['c. MI XAO BO · mit Rinderhüfte', '16,90'], ['d. MI XAO VIT · mit knuspriger Ente', '17,90']] },
-          { code: '44', name: 'UDON TERIYAKI',
+          { code: '44', name: 'UDON TERIYAKI', img: 'dish-udon.webp',
             desc: 'Gebratene Udon-Nudeln mit Pak Choi, Champignons und Karotten in hausgemachter Teriyaki-Soße.',
             variants: [['a. UDON GA · mit gebratenem Hähnchen', '14,90'], ['b. UDON GA CHIEN · mit knusprigem Hähnchen', '15,90'], ['c. UDON BO · mit Rinderhüfte', '16,90'], ['d. UDON TOM · mit Garnelen', '17,90'], ['e. UDON VIT · mit knuspriger Ente', '17,90'], ['f. UDON TOFU 🌿 · mit Bio-Tofu', '14,90']] }
         ]
@@ -268,7 +268,7 @@ const MENU = [
         title: 'Nigiri',
         note: '2 Stück',
         layout: 'list',
-        strip: ['dish-27.webp', 'dish-28.webp'],
+        strip: ['dish-nigiri-sake.webp', 'dish-nigiri-maguro.webp'],
         items: [
           { code: 'S11', name: 'Sake Nigiri', desc: 'Lachs', price: '5,50' },
           { code: 'S12', name: 'Maguro Nigiri', desc: 'Thunfisch', price: '5,90' },
@@ -282,7 +282,7 @@ const MENU = [
         title: 'Maki',
         note: '6 Stück',
         layout: 'list',
-        strip: ['dish-37.webp'],
+        strip: ['dish-maki.webp'],
         items: [
           { code: 'S21', name: 'Sake Maki', desc: 'Lachs', price: '5,50' },
           { code: 'S22', name: 'Tekka Maki', desc: 'Thunfisch', price: '5,90' },
@@ -298,7 +298,7 @@ const MENU = [
         title: 'Inside Out Rolls',
         note: '5 Stück',
         layout: 'list',
-        strip: ['dish-30.webp'],
+        strip: ['dish-inside-out.webp'],
         items: [
           { code: 'S31', name: 'Sake Avocado Roll', desc: 'Lachs · Avocado · Sesam', price: '5,90' },
           { code: 'S32', name: 'Ebi Tempura Roll', desc: 'Ebi-Tempura · Avocado · Sesam · La Maison Soße', price: '6,50' },
@@ -322,7 +322,7 @@ const MENU = [
         title: 'Spezial Rolls',
         note: '5 Stück · perfekt zum Kombinieren',
         layout: 'list',
-        strip: ['dish-34.webp'],
+        strip: ['dish-special-roll.webp'],
         items: [
           { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', star: true,
             desc: 'Empfehlung des Hauses · Tempura-Garnele · Avocado · Gurke · Tobiko, getoppt mit flambiertem Lachs und hausgemachter La Maison Soße' },
@@ -373,11 +373,11 @@ const MENU = [
         layout: 'list',
         strip: ['dish-25.webp', 'dish-35.webp'],
         items: [
-          { name: 'Sake Set', price: '13,90',
+          { name: 'Sake Set', price: '13,90', img: 'dish-sake-set.webp',
             contents: [{ items: ['4 Sake Nigiri', '6 Sake Maki'] }] },
           { name: 'Tuna Set', price: '15,90',
             contents: [{ items: ['4 Maguro Nigiri', '6 Tekka Maki'] }] },
-          { name: 'California Mix', price: '14,90',
+          { name: 'California Mix', price: '14,90', img: 'dish-california-mix.webp',
             contents: [{ items: ['2 Sake Nigiri', '2 Maguro Nigiri', '5 California Roll'] }] },
           { name: 'Maki Mix', price: '13,90',
             contents: [{ items: ['6 Ebi Tempura Maki', '6 Avocado Maki', '6 California Maki'] }] },
@@ -390,17 +390,17 @@ const MENU = [
         layout: 'list',
         strip: ['dish-24.webp', 'dish-36.webp'],
         items: [
-          { name: 'Bento 1', price: '17,50',
+          { name: 'Bento 1', price: '17,50', img: 'dish-bento-1.webp',
             contents: [{ items: ['5 California Roll', '5 Ebi Tempura Roll', '6 Crunchy Sake'] }] },
-          { name: 'Bento 2', price: '16,50',
+          { name: 'Bento 2', price: '16,50', img: 'dish-bento-2.webp',
             contents: [{ items: ['5 Yakitori Roll', '5 Karaage Roll', '6 Crunchy Chicken'] }] },
-          { name: 'Bento 3', price: '21,50',
+          { name: 'Bento 3', price: '21,50', img: 'dish-bento-3.webp',
             contents: [{ items: ['2 Sake Nigiri', '6 Sake Maki', '5 Sake Avocado Roll', '6 Crunchy Sake'] }] },
           { name: 'Bento 4', price: '23,50',
             contents: [{ items: ['5 Tokyo Chicken Roll', '5 Yakitori Roll', '5 Ebi Tempura Roll', '6 Crunchy Chicken'] }] },
-          { name: 'Bento 5', price: '21,50',
+          { name: 'Bento 5', price: '21,50', img: 'dish-bento-5.webp',
             contents: [{ items: ['6 Sake Maki', '5 California Roll', '5 Sake Avocado Roll', '6 Crunchy Sake'] }] },
-          { name: 'Bento 6', price: '14,50', tags: ['veg'],
+          { name: 'Bento 6', price: '14,50', img: 'dish-bento-6.webp', tags: ['veg'],
             contents: [{ items: ['5 Mango Avocado Roll', '6 Avocado Maki', '6 Crunchy Veggie'] }] }
         ]
       },
@@ -409,7 +409,7 @@ const MENU = [
         note: 'Bento 7 und Bento 8 lassen sich ideal kombinieren – perfekt für 4 Personen oder eine Familie',
         layout: 'list',
         items: [
-          { name: 'BENTO 7', sub: 'für 2 Personen', price: '52,00',
+          { name: 'BENTO 7', sub: 'für 2 Personen', price: '52,00', img: 'dish-bento-7.webp',
             contents: [{ title: 'Enthalten', items: ['2 Sake Nigiri', '2 Ebi Nigiri', '5 Osaka Roll', '5 Yakitori Roll', '5 Ebi Tempura Roll', '5 Samurai Roll', '5 Sakura Roll', '5 Kyoto Roll', '6 Crunchy Chicken'] }] },
           { name: 'BENTO 8', sub: 'für 2 Personen', price: '48,00',
             contents: [{ title: 'Enthalten', items: ['2 Sake Nigiri', '2 Maguro Nigiri', '6 Sake Maki', '6 Tekka Maki', '5 Sake Avocado Roll', '5 California Roll', '5 La Maison Roll ⭐', '5 Ebi Tempura Roll', '6 Crunchy Sake'] }] }
@@ -474,7 +474,7 @@ const MENU = [
         layout: 'list',
         items: [
           { code: '90', name: 'La Maison Eis', price: '5,90', desc: 'Drei Kugeln Eis: Vanille · Erdbeere · Schokolade' },
-          { code: '91', name: 'CHUOI CHIEN', price: '6,50', img: 'dish-33.webp', desc: 'Knusprig gebackene Banane mit Honig, Sesam und Vanilleeis' },
+          { code: '91', name: 'CHUOI CHIEN', price: '6,50', img: 'dish-chuoi-chien.webp', desc: 'Knusprig gebackene Banane mit Honig, Sesam und Vanilleeis' },
           { code: '92', name: 'XOI XOAI', sub: '(Mango Sticky Rice)', price: '6,90', desc: 'Warmer Klebreis mit aromatischer Kokosmilch, geröstetem Sesam und Mango' }
         ]
       }
