@@ -24,18 +24,23 @@
     .map(tag => FLAGS[tag] ? `<span class="flag flag--${tag}" title="${FLAGS[tag].label}">${FLAGS[tag].icon}</span>` : '')
     .join('');
 
+  const allergens = value => value
+    ? `<small class="allergens" aria-label="Allergene: ${esc(value)}">${esc(value)}</small>`
+    : '';
+
   // withSub = false, wenn der Zusatz an anderer Stelle ausgegeben wird (Platten)
   const title = (item, withSub = true) => [
     item.code ? `<span class="code">${esc(item.code)}</span>` : '',
     esc(item.name),
     withSub && item.sub ? ` <small>${esc(item.sub)}</small>` : '',
     item.star ? '<span class="star" title="Empfehlung des Hauses">★</span>' : '',
-    flags(item)
+    flags(item),
+    allergens(item.allergens)
   ].join('');
 
   const variants = item => item.variants?.length
-    ? `<ul class="variants">${item.variants.map(([label, price]) =>
-        `<li><span>${esc(label)}</span><b>${esc(price)}</b></li>`).join('')}</ul>`
+    ? `<ul class="variants">${item.variants.map(([label, price, codes]) =>
+        `<li><span>${esc(label)} ${allergens(codes)}</span><b>${esc(price)} €</b></li>`).join('')}</ul>`
     : '';
 
   const contents = item => item.contents?.length
@@ -46,7 +51,7 @@
     : '';
 
   const price = item => item.price
-    ? `<span class="price">${esc(item.price)}${item.priceNote ? `<small>${esc(item.priceNote)}</small>` : ''}</span>`
+    ? `<span class="price">${esc(item.price)} €${item.priceNote ? `<small>${esc(item.priceNote)}</small>` : ''}</span>`
     : '';
 
   const dataTags = item => ` data-tags="${(item.tags || []).join(' ')}"`;
@@ -61,7 +66,7 @@
       <div class="row__line">
         <h4 class="row__name">${title(item)}</h4>
         <span class="row__lead" aria-hidden="true"></span>
-        ${item.price ? `<b class="row__price">${esc(item.price)}${item.priceNote ? `<small>${esc(item.priceNote)}</small>` : ''}</b>` : ''}
+        ${item.price ? `<b class="row__price">${esc(item.price)} €${item.priceNote ? `<small>${esc(item.priceNote)}</small>` : ''}</b>` : ''}
       </div>
       ${item.desc ? `<p class="row__desc">${esc(item.desc)}</p>` : ''}
       ${contents(item)}

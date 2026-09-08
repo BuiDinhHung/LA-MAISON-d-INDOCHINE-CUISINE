@@ -44,7 +44,6 @@
           <figcaption>M10 · Poké Bowl</figcaption>
         </figure>
       </div>
-      <p class="lunch-menu__note"><strong>Hinweis</strong><br>Serviert mit Jasminreis oder gebratenen Nudeln · Knusprige Ente statt Hähnchen: +2,00 € Aufpreis</p>
     </section>`;
 
   const cloud = section.querySelector('.lunch-menu__cloud');

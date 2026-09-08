@@ -36,9 +36,20 @@ const activeSection = new IntersectionObserver(entries => entries.forEach(entry 
 sections.forEach(section => activeSection.observe(section));
 
 const menuLinks = [...document.querySelectorAll('.full-menu-nav a')];
+const menuScroller = document.querySelector('.full-menu-nav__scroll');
+menuScroller?.addEventListener('wheel', event => {
+  const delta = event.deltaX || event.deltaY;
+  const atStart = menuScroller.scrollLeft <= 0;
+  const atEnd = menuScroller.scrollLeft + menuScroller.clientWidth >= menuScroller.scrollWidth - 1;
+  if ((delta < 0 && atStart) || (delta > 0 && atEnd)) return;
+  event.preventDefault();
+  menuScroller.scrollBy({ left: delta, behavior: 'smooth' });
+}, { passive: false });
 const activeMenuCategory = new IntersectionObserver(entries => entries.forEach(entry => {
   if (!entry.isIntersecting) return;
-  menuLinks.forEach(link => link.classList.toggle('is-active', link.hash === `#${entry.target.id}`));
+  const activeLink = menuLinks.find(link => link.hash === `#${entry.target.id}`);
+  menuLinks.forEach(link => link.classList.toggle('is-active', link === activeLink));
+  activeLink?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 }), { rootMargin: '-25% 0px -65%' });
 document.querySelectorAll('.menu-category').forEach(section => activeMenuCategory.observe(section));
 

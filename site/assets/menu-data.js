@@ -9,7 +9,8 @@
      sub       Zusatz in der Kopfzeile         "(scharf)"
      desc      Beschreibung
      price     Einzelpreis                     "13,90"
-     variants  [[Bezeichnung, Preis], ...]
+     allergens Allergenkennzeichnung         "A,B,D"
+     variants  [[Bezeichnung, Preis, Allergene (optional)], ...]
      contents  [{title, items:[...]}, ...]     für Platten und Bento-Sets
      img       Bild aus assets/                "dish-01.webp"
      cover     true = Foto formatfüllend (Bild ohne Freisteller-Hintergrund)
@@ -21,6 +22,12 @@
                | "feature" (große Karten für Platten)
      strip     Fotos, die bei "list" oben in der Gruppe gezeigt werden
    ========================================================================== */
+
+const LA_MAISON_ROLL = { code: 'S43', name: 'LA MAISON ROLL', price: '7,90', allergens: 'A,B,D', star: true,
+  desc: 'Tempura-Garnele · Avocado · Gurke · Sesam · Getoppt mit flambiertem Lachs und hausgemachter La Maison Soße' };
+
+const CRUNCHY_CHICKEN = { code: 'S61', name: 'CRUNCHY CHICKEN', price: '7,90', allergens: 'A,G',
+  desc: 'Knusprig panierte Rolle mit Hähnchen, Avocado, Gurke und Frischkäse' };
 
 const MENU = [
   {
@@ -35,20 +42,18 @@ const MENU = [
         note: 'Empfehlung des Hauses',
         layout: 'cards',
         items: [
-          { name: 'PHO BO', sub: '(mit Rindfleisch)', price: '15,90', img: 'dish-pho-bo.webp', star: true,
+          { code: '40A', name: 'PHO BO', sub: '(MIT RINDFLEISCH)', allergens: 'D', price: '15,90', img: 'dish-pho-bo.webp', star: true,
             desc: 'Traditionelle vietnamesische Reisnudelsuppe mit aromatischer Brühe, Reisbandnudeln, zartem Rindfleisch und frischen Kräutern' },
-          { name: 'BUN BO NAM BO', price: '15,90', img: 'dish-bun-bo-nam-bo.webp', star: true,
-            desc: 'Vietnamesische Reisnudeln mit gebratener Rinderhüfte, frischen Kräutern, Röstzwiebeln und Limetten-Dressing' },
-          { name: 'Bo Xao Bo Toi', price: '18,90', star: true,
-            desc: 'Zart gebratenes Rindfleisch mit aromatischer Knoblauchbutter, Paprika und Brokkoli, serviert auf heißer Pfanne' },
-          { name: 'THAI CURRY', sub: '(knuspriges Hähnchen)', price: '14,90', img: 'dish-17.webp', tags: ['spicy'], star: true,
+          { code: '41A', name: 'BUN BO NAM BO', allergens: 'A,D,E', price: '15,90', img: 'dish-bun-bo-nam-bo.webp', star: true,
+            desc: 'Vietnamesische Reisnudeln mit gebratener Rinderhüfte, frischen Kräutern, Röstzwiebeln und Fisch-Limetten-Dressing' },
+          { code: '36B', name: 'BO XAO BO TOI', allergens: 'G,I', price: '18,90', star: true,
+            desc: 'Zart gebratenes Rindfleisch mit Knoblauchbutter, Paprika und Brokkoli, Sellerie. Serviert auf heißer Pfanne' },
+          { code: '30B', name: 'THAI CURRY', sub: '(MIT KNUSPRIGES HÄHNCHEN)', allergens: 'A,D', price: '14,90', img: 'dish-17.webp', tags: ['spicy'], star: true,
             desc: 'Cremiges rotes Thai-Curry mit Kokosmilch, frischem Gemüse und Thai-Basilikum' },
-          { name: 'LA MAISON TERIYAKI', sub: '(knusprige Ente)', price: '16,90', img: 'dish-09.webp', star: true,
+          { code: '33C', name: 'LA MAISON TERIYAKI', sub: '(MIT KNUSPRIGE ENTE)', allergens: 'A,F', price: '16,90', img: 'dish-09.webp', star: true,
             desc: 'Marktfrisches Gemüse in Teriyaki-Soße mit knuspriger Ente' },
-          { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', img: 'dish-26.webp', cover: true, star: true,
-            desc: 'Tempura-Garnele mit Avocado, Gurke und Tobiko, getoppt mit flambiertem Lachs und La Maison Soße' },
-          { code: 'S61', name: 'CRUNCHY CHICKEN', price: '6,90', img: 'dish-23.webp', star: true,
-            desc: 'Knusprig panierte Rolle mit Hähnchen, Avocado und Gurke.' }
+          { ...LA_MAISON_ROLL, img: 'dish-26.webp', cover: true },
+          { ...CRUNCHY_CHICKEN, img: 'dish-23.webp', star: true }
         ]
       },
       {
@@ -56,20 +61,22 @@ const MENU = [
         note: 'Platten für Familie & Freunde',
         layout: 'list',
         items: [
-          { name: 'VORSPEISENPLATTE', sub: '(ab 2 Personen)', price: '13,90', priceNote: 'pro Person',
-            desc: 'Unsere beliebtesten Vorspeisen – ideal zum Teilen',
-            contents: [{ title: 'Auf der Platte', items: ['Goi Cuon mit Garnelen (Sommerrollen)', 'Nem Hanoi (2 Stk.)', 'Ebi Tempura (3 Stk.)', 'Yakitori-Spieße (3 Stk.)', 'Nom Xu Hao (Hähnchen)'] }] },
-          { name: 'INDOCHINE BALANCE PLATTE', sub: 'für 2 Personen', price: '48,90',
+          { code: 'GG1', name: 'LA MAISON MIX PLATTE', price: '21,90',
+            desc: 'Sehr beliebt zum Teilen',
+            contents: [{ items: ['Sake Avocado Maki (6 Stk.)', 'Crunchy Chicken (6 Stk.)', 'Gyoza (4 Stk.)', 'Edamame'] }] },
+          { code: 'GG2', name: 'LA MAISON STARTER PLATTE', price: '21,90',
+            desc: 'Perfekt als Starter zum Teilen',
+            contents: [{ items: ['Goi Cuon mit Garnelen (Sommerrollen) (2 Stk.)', 'Ebi Tempura (3 Stk.)', 'Nem Hanoi (2 Stk.)', 'Yakitori-Spieße (3 Stk.)'] }] },
+          { code: 'GG3', name: 'INDOCHINE FAMILY PLATTE', sub: 'Für 2 Personen', price: '45,00',
             desc: 'Warm & frisch kombiniert',
             contents: [
-              { title: 'Sushi', items: ['2 Sake Nigiri', '2 Maguro Nigiri', '6 Sake Maki', '6 Crunchy Chicken'] },
-              { title: 'Warme Gerichte', items: ['1 Bun Bo Nam Bo', '1 Thai Curry (Hähnchen oder knuspriges Hähnchen)'] }
+              { title: 'Sushi', items: ['2 Sake Nigiri', '6 Avocado Maki'] },
+              { title: 'Warme Gerichte', items: ['1 Bun Bo Nam Bo', '1 Thai Curry (Hähnchen oder knuspriges Hähnchen)', '6 Crunchy Chicken', '6 Tekka Maki', '6 Crunchy Sake'] }
             ] },
-          { name: 'INDOCHINE FAMILY PLATTE', sub: 'für 4 Personen', price: '89,90',
-            desc: 'Eine ausgewogene Kombination aus warmen Indochine-Gerichten und frischen Sushi-Highlights – perfekt zum Teilen.',
+          { code: 'GG4', name: 'INDOCHINE FAMILY PLATTE', sub: 'Für 4 Personen', price: '85,00',
             contents: [
-              { title: 'Sushi', items: ['4 Sake Nigiri', '4 Ebi Nigiri', '6 Sake Maki', '6 Tekka Maki', '6 Crunchy Sake'] },
-              { title: 'Warme Gerichte', items: ['1 Thai Curry (Hähnchen oder knuspriges Hähnchen)', '1 Erdnuss knuspriger Ente', '1 Bo Xao Bo Toi', '1 Bun Bo Nam Bo'] }
+              { title: 'Sushi', items: ['4 Sake Nigiri', '6 Kappa Maki'] },
+              { title: 'Warme Gerichte', items: ['1 Thai Curry (Hähnchen oder knuspriges Hähnchen)', '1 La Maison Erdnuss mit knuspriger Ente', '1 Bo Xao Bo Toi', '1 Bun Bo Nam Bo'] }
             ] }
         ]
       }
@@ -81,23 +88,24 @@ const MENU = [
     title: 'Suppen',
     kicker: 'Warm & aromatisch',
     lede: 'Langsam gekochte Brühen, frische Kräuter, feine Schärfe.',
-    hero: 'dish-18.webp',
     groups: [
       {
         title: 'Suppen',
         layout: 'cards',
         items: [
-          { code: '01', name: 'TOM KHA', img: 'dish-18.webp',
+          { code: '01', name: 'MISO SUPPE', price: '4,90',
+            desc: 'Mit Tofu, Seetang und Lauchzwiebeln' },
+          { code: '02', name: 'TOM KHA SUPPE', allergens: 'D,G',
             desc: 'Cremige Kokosmilchsuppe mit Galgant, Zitronengras, Champignons, Tomaten und Kaffir-Limettenblättern.',
-            variants: [['a. TOM KHA GAI · mit Hähnchen', '5,90'], ['b. TOM KHA GUNG · mit Garnelen', '6,50'], ['c. TOM KHA TOFU 🌿 · mit Bio-Tofu', '5,50']] },
-          { code: '02', name: 'TOM YAM', sub: '(leicht scharf)', tags: ['spicy'],
+            variants: [['a) TOM KHA GAI · mit Hähnchen', '5,90', 'D'], ['b) TOM KHA GUNG · mit Garnelen', '6,50', 'B,D'], ['c) TOM KHA TOFU · mit Bio-Tofu', '5,50', 'D,F']] },
+          { code: '03', name: 'TOM YAM SUPPE', tags: ['spicy'],
             desc: 'Würzig-säuerliche Suppe mit Zitronengras, Champignons, Tomaten und frischem Koriander.',
-            variants: [['a. TOM YAM GAI · mit Hähnchen', '5,90'], ['b. TOM YAM GUNG · mit Garnelen', '6,50'], ['c. TOM YAM TOFU 🌿 · mit Bio-Tofu', '5,50']] },
-          { code: '03', name: 'SUP HOANH THANH', price: '5,90',
-            desc: 'Wantansuppe mit hausgemachten Teigtaschen, gefüllt mit Hähnchen und Garnelen, dazu Pak Choi und frischem Koriander.' },
-          { code: '04', name: 'PHO HANOI', sub: '(kleine Portion)', img: 'dish-07.webp',
-            desc: 'Vietnams berühmte Reisnudelsuppe aus Nordvietnam. Klare, aromatische Brühe, langsam gekocht mit Sternanis, Zimt und frischem Ingwer, serviert mit Reisbandnudeln und frischen Kräutern.',
-            variants: [['a. PHO BO (klein) · mit Rindfleisch', '6,50'], ['b. PHO GA (klein) · mit Hähnchen', '5,90'], ['c. PHO CHAY (klein) · mit Tofu und Pak Choi Gemüse', '5,50']] }
+            variants: [['a) TOM YAM GAI · mit Hähnchen', '5,90', 'D'], ['b) TOM YAM GUNG · mit Garnelen', '6,50', 'B,D'], ['c) TOM YAM TOFU · mit Bio-Tofu', '5,50', 'D,F']] },
+          { code: '04', name: 'SUP HOANH THANH', price: '5,90', allergens: 'A,B,C',
+            desc: 'Wantansuppe mit hausgemachten Teigtaschen, gefüllt mit Hähnchen und Garnelen, dazu Pak Choi und frischem Koriander' },
+          { code: '05', name: 'PHO HANOI', sub: '(KLEINE PORTION)',
+            desc: 'Vietnams berühmte Reisnudelsuppe aus Nordvietnam. Klare, aromatische Brühe, langsam gekocht mit Sternanis, Zimt und frischem Ingwer. Serviert mit Reisbandnudeln und frischen Kräutern.',
+            variants: [['a) PHO BO (klein) · mit Rindfleisch', '6,50', 'D'], ['b) PHO GA (klein) · mit Hähnchen', '5,90', 'D'], ['c) PHO CHAY (klein) · mit Tofu und Pak Choi Gemüse', '5,50', 'D,F']] }
         ]
       }
     ]
@@ -148,7 +156,7 @@ const MENU = [
           { code: '20', name: 'EDAMAME', price: '5,50', img: 'dish-edamame.webp', tags: ['veg'], desc: 'Gekochte grüne Sojabohnen mit Meersalz' },
           { code: '21', name: 'MINI FRÜHLINGSROLLEN', sub: '(8 Stk.)', price: '4,90', tags: ['veg'], desc: 'Knusprig frittierte Mini-Frühlingsrollen mit Gemüsefüllung' },
           { code: '22', name: 'GYOZA', sub: '(4 Stk.)', price: '5,90', img: 'dish-gyoza.webp', tags: ['veg'], desc: 'Knusprig gebratene Teigtaschen mit Gemüsefüllung' },
-          { code: '23', name: 'GOI CUON CHAY', sub: '(2 Stk.)', price: '5,50', tags: ['veg'],
+          { code: '23', name: 'GOI CUON CHAY', sub: '(2 STK.)', allergens: 'E,F', price: '5,90', tags: ['veg'],
             desc: 'Frische Sommerrollen mit Bio-Tofu, Reisnudeln, Salat und Kräutern, dazu Hoisin-Soße' }
         ]
       }
@@ -204,8 +212,8 @@ const MENU = [
             desc: 'Zart gebratenes Hähnchen mit Pak Choi, Paprika, Karotten, Zucchini und Cashewnüssen' },
           { code: '36a', name: 'BO XAO SA OT', price: '18,90', tags: ['spicy'],
             desc: 'Zart gebratenes Rindfleisch mit Zitronengras, Chili, Paprika und Brokkoli, serviert auf heißer Pfanne' },
-          { code: '36b', name: 'BO XAO BO TOI', price: '18,90',
-            desc: 'Zart gebratenes Rindfleisch mit Knoblauchbutter, Paprika und Brokkoli, serviert auf heißer Pfanne' },
+          { code: '36B', name: 'BO XAO BO TOI', allergens: 'G,I', price: '18,90',
+            desc: 'Zart gebratenes Rindfleisch mit Knoblauchbutter, Paprika und Brokkoli, Sellerie. Serviert auf heißer Pfanne' },
           { code: '37', name: 'CA HOI CARI', price: '19,90', tags: ['spicy'],
             desc: 'Gegrillter Lachs mit frischem Gemüse in cremiger Curry-Kokos-Soße' },
           { code: '38', name: 'TOM XAO TIEU DEN', price: '16,90',
@@ -300,12 +308,14 @@ const MENU = [
         layout: 'list',
         strip: ['dish-inside-out.webp'],
         items: [
-          { code: 'S31', name: 'Sake Avocado Roll', desc: 'Lachs · Avocado · Sesam', price: '5,90' },
-          { code: 'S32', name: 'Ebi Tempura Roll', desc: 'Ebi-Tempura · Avocado · Sesam · La Maison Soße', price: '6,50' },
-          { code: 'S33', name: 'Maguro Avocado Roll', desc: 'Thunfisch · Avocado · Tobiko', price: '6,50' },
-          { code: 'S34', name: 'California Roll', desc: 'Surimi · Avocado · Tobiko', price: '5,50' },
-          { code: 'S36', name: 'Yakitori Roll', desc: 'Gegrilltes Hähnchen · Avocado · Gurke · Teriyaki-Soße', price: '5,90' },
-          { code: 'S37', name: 'Mango Avocado Roll', desc: 'Mango · Avocado · Gurke · Sesam', price: '5,50', tags: ['veg'] }
+          { code: 'S31', name: 'SAKE AVOCADO ROLL', allergens: 'D,K', desc: 'Lachs · Avocado · Sesam · Tobiko', price: '5,90' },
+          { code: 'S32', name: 'MAGURO AVOCADO ROLL', allergens: 'D,K', desc: 'Thunfisch · Avocado · Sesam · Tobiko', price: '6,50' },
+          { code: 'S33', name: 'EBI TEMPURA ROLL', allergens: 'A,B,C,F,K', desc: 'Ebi-Tempura · Avocado · Sesam · Tobiko · La Maison Soße', price: '5,90' },
+          { code: 'S34', name: 'CALIFORNIA ROLL', allergens: 'K,O', desc: 'Surimi · Avocado · Sesam · Tobiko', price: '5,50' },
+          { code: 'S35', name: 'KARAAGE ROLL', allergens: 'A,C,K', desc: 'Knusprig paniertes Hähnchen · Avocado · Gurke · Sesam · Spicy Mayo', price: '5,90' },
+          { code: 'S36', name: 'YAKITORI ROLL', allergens: 'F,K', desc: 'Gegrilltes Hähnchen · Avocado · Gurke · Sesam · Teriyaki-Soße', price: '5,90' },
+          { code: 'S37', name: 'AVOCADO PHILADELPHIA', allergens: 'G,K', desc: 'Avocado · Gurke · Frischkäse · Sesam', price: '5,50', tags: ['veg'] },
+          { code: 'S38', name: 'MANGO AVOCADO ROLL', allergens: 'K', desc: 'Mango · Avocado · Gurke · Sesam', price: '5,50', tags: ['veg'] }
         ]
       }
     ]
@@ -324,37 +334,35 @@ const MENU = [
         layout: 'list',
         strip: ['dish-special-roll.webp'],
         items: [
-          { code: 'S40', name: 'LA MAISON ROLL', price: '8,50', star: true,
-            desc: 'Empfehlung des Hauses · Tempura-Garnele · Avocado · Gurke · Tobiko, getoppt mit flambiertem Lachs und hausgemachter La Maison Soße' },
-          { code: 'S41', name: 'SAMURAI ROLL', price: '7,50',
-            desc: 'Knusprig gebackener Lachs · Mango · Gurke · Sesam, garniert mit Avocadoscheiben' },
-          { code: 'S42', name: 'TOKYO ROLL', price: '7,90',
-            desc: 'Lachs · Avocado · Frischkäse · Sesam, getoppt mit Thunfisch' },
-          { code: 'S43', name: 'KYOTO ROLL', price: '6,90',
+          { code: 'S41', name: 'OSAKA ROLL', price: '6,90', allergens: 'C,D,K',
+            desc: 'Lachs · Avocado · Sesam · Spicy Mayo · Verfeinert mit knusprigen Nudelstreifen' },
+          { code: 'S42', name: 'TOKYO TUNA ROLL', price: '7,90', allergens: 'D,G,K',
+            desc: 'Thunfisch · Avocado · Frischkäse · Sesam · Getoppt mit Lachs' },
+          LA_MAISON_ROLL,
+          { code: 'S44', name: 'KYOTO ROLL', price: '6,90', allergens: 'C,D,G,K',
             desc: 'Lachs · Avocado · Frischkäse · Sesam · Spicy Mayo · knusprige Nori-Chips' },
-          { code: 'S44', name: 'OSAKA ROLL', price: '6,90',
-            desc: 'Lachs · Avocado · Sesam · Spicy Mayo, verfeinert mit knusprigen Nudelstreifen' },
-          { code: 'S45', name: 'TOKYO CHICKEN ROLL', price: '6,90',
-            desc: 'Gebackenes Hähnchen · Gurke · Sesam · Spicy Mayo, verfeinert mit knusprigen Nudelstreifen' },
-          { code: 'S46', name: 'SAKURA ROLL', price: '7,50',
-            desc: 'Surimi · Avocado, getoppt mit Lachs, verfeinert mit Spicy Mayo und Tobiko' }
+          { code: 'S45', name: 'SAKURA ROLL', price: '6,90', allergens: 'B,C,D',
+            desc: 'Surimi · Avocado · Sesam · Tobiko · Getoppt mit Lachs' },
+          { code: 'S46', name: 'TOKYO CHICKEN ROLL', price: '6,90', allergens: 'A,C,K',
+            desc: 'Paniertes Hähnchen · Avocado · Gurke · Sesam · Spicy Mayo · Verfeinert mit knusprigen Nudelstreifen' },
+          { code: 'S47', name: 'SAMURAI ROLL', price: '7,50', allergens: 'A,D,K',
+            desc: 'Knusprig gebackener Lachs · Mango · Gurke · Sesam · Garniert mit Avocadoscheiben' }
         ]
       },
       {
         title: 'Big Crunchy Rolls',
-        note: '6 große Stück · unsere beliebten Klassiker, serviert mit hausgemachter La Maison Soße',
+        note: '(6 große Stück) · Unsere beliebten Klassiker für jeden Geschmack · Serviert mit hausgemachter La Maison Soße',
         layout: 'list',
         strip: ['dish-22.webp'],
         items: [
-          { code: 'S61', name: 'CRUNCHY CHICKEN', price: '6,90',
-            desc: 'Knusprig panierte Rolle mit Hähnchen, Avocado und Gurke' },
-          { code: 'S62', name: 'CRUNCHY SAKE', price: '7,50',
-            desc: 'Knusprig panierte Rolle mit Lachs, Avocado und Gurke' },
-          { code: 'S63', name: 'CRUNCHY TUNA', price: '7,90',
-            desc: 'Knusprig panierte Rolle mit Thunfisch, Avocado und Gurke' },
-          { code: 'S64', name: 'CRUNCHY EBI', price: '7,90',
-            desc: 'Knusprig panierte Rolle mit Garnelen, Avocado und Gurke' },
-          { code: 'S65', name: 'CRUNCHY VEGGIE', price: '6,90', tags: ['veg'],
+          CRUNCHY_CHICKEN,
+          { code: 'S62', name: 'CRUNCHY SAKE', price: '8,50', allergens: 'A,D,G',
+            desc: 'Knusprig panierte Rolle mit Lachs, Avocado, Gurke und Frischkäse' },
+          { code: 'S63', name: 'CRUNCHY TUNA', price: '8,50', allergens: 'A,D,G',
+            desc: 'Knusprig panierte Rolle mit Thunfisch, Avocado, Gurke und Frischkäse' },
+          { code: 'S64', name: 'CRUNCHY EBI', price: '8,50', allergens: 'A,B,G',
+            desc: 'Knusprig panierte Rolle mit Garnelen, Avocado, Gurke und Frischkäse' },
+          { code: 'S65', name: 'CRUNCHY VEGGIE', price: '7,50', allergens: 'A,G', tags: ['veg'],
             desc: 'Knusprig panierte Rolle mit Avocado, Mango, Gurke und Frischkäse' }
         ]
       }
@@ -396,7 +404,7 @@ const MENU = [
             contents: [{ items: ['5 Yakitori Roll', '5 Karaage Roll', '6 Crunchy Chicken'] }] },
           { name: 'Bento 3', price: '21,50', img: 'dish-bento-3.webp',
             contents: [{ items: ['2 Sake Nigiri', '6 Sake Maki', '5 Sake Avocado Roll', '6 Crunchy Sake'] }] },
-          { name: 'Bento 4', price: '23,50',
+          { name: 'BENTO 4', price: '23,50', allergens: 'A,B', img: 'bento-4.jpg', cover: true,
             contents: [{ items: ['5 Tokyo Chicken Roll', '5 Yakitori Roll', '5 Ebi Tempura Roll', '6 Crunchy Chicken'] }] },
           { name: 'Bento 5', price: '21,50', img: 'dish-bento-5.webp',
             contents: [{ items: ['6 Sake Maki', '5 California Roll', '5 Sake Avocado Roll', '6 Crunchy Sake'] }] },
@@ -473,9 +481,9 @@ const MENU = [
         title: 'Dessert',
         layout: 'list',
         items: [
-          { code: '90', name: 'La Maison Eis', price: '5,90', desc: 'Drei Kugeln Eis: Vanille · Erdbeere · Schokolade' },
-          { code: '91', name: 'CHUOI CHIEN', price: '6,50', img: 'dish-chuoi-chien.webp', desc: 'Knusprig gebackene Banane mit Honig, Sesam und Vanilleeis' },
-          { code: '92', name: 'XOI XOAI', sub: '(Mango Sticky Rice)', price: '6,90', desc: 'Warmer Klebreis mit aromatischer Kokosmilch, geröstetem Sesam und Mango' }
+          { code: '90', name: 'KEM (EIS)', allergens: 'G', price: '5,90', desc: 'Drei Kugeln Eis: Vanille · Erdbeere · Schokolade' },
+          { code: '91', name: 'CHUOI CHIEN', allergens: 'A,G,K', price: '6,50', img: 'dish-chuoi-chien.webp', desc: 'Knusprig gebackene Banane mit Honig, Sesam und Vanilleeis' },
+          { code: '92', name: 'XOI XOAI', allergens: 'K', price: '6,90', desc: 'Warmer Klebreis mit aromatischer Kokosmilch, geröstetem Sesam und Mango' }
         ]
       }
     ]
@@ -484,171 +492,38 @@ const MENU = [
   {
     id: 'menu-cat-12',
     title: 'Alkoholfreie Getränke',
-    kicker: 'Tee, Kaffee & Limonaden',
-    lede: 'Hausgemachte Tees, vietnamesischer Phin-Kaffee und frische Limonaden.',
-    hero: 'quan-03.jpg',
-    heroCover: true,
-    groups: [
-      {
-        title: 'Tea & Coffee',
-        note: 'Heißgetränke',
-        layout: 'list',
-        items: [
-          { code: '101', name: 'TRA GUNG', sub: '(Hausgemachter Tee)', price: '4,50', desc: 'Frischer Ingwer · Orange · Minze · Honig' },
-          { code: '102', name: 'TRA BAC HA', sub: '(Hausgemachter Tee)', price: '4,50', desc: 'Frische Minze · Limette · Honig' },
-          { code: '103', name: 'TRA NHAI', price: '4,50', desc: 'Jasmintee aus Vietnam' },
-          { code: '104', name: 'Kaffee', sub: '(Tasse)', price: '3,00' },
-          { code: '105', name: 'Espresso', price: '2,50' },
-          { code: '106', name: 'Double Espresso', price: '3,50' },
-          { code: '107', name: 'Ca Phe Phin',
-            desc: 'Der vietnamesische Kaffee ist ein fester Bestandteil der Alltagskultur Vietnams. Langsam durch den traditionellen „Phin“-Filter getropft, entfaltet er sein intensives, vollmundiges Aroma – kraftvoll und charakterstark. Ein Moment der Ruhe und Tiefe – authentisch und zeitlos. Vietnamesischer Kaffee, frisch durch den klassischen Phin-Filter zubereitet, serviert mit gesüßter Kondensmilch.',
-            variants: [['Heiß', '4,50'], ['Auf Eis', '4,50']] }
-        ]
-      },
-      {
-        title: 'Homemade Drinks',
-        note: 'Hausgemachte Getränke (0,4L)',
-        layout: 'list',
-        items: [
-          { code: '121', name: 'Chanh Da', price: '5,50', desc: 'Limettensaft · Rohrzucker · Minze · Soda' },
-          { code: '122', name: 'Maracuja Indochine', price: '5,50', desc: 'Maracuja · Limettensaft · Rohrzucker · Minze · Soda' },
-          { code: '123', name: 'Thai Tamarind Fizz', price: '5,50', desc: 'Tamarinde · Ingwer · Limettensaft · Rohrzucker · Soda' },
-          { code: '124', name: 'Lychee Limonade', price: '5,50', desc: 'Lychee · Limette · Rohrzucker · Soda' },
-          { code: '125', name: 'Saigon Pink Tea', price: '5,50', desc: 'Jasmintee · Himbeeren · Limette · Minze · Rohrzucker' }
-        ]
-      },
-      {
-        title: 'Mineralwasser',
-        note: '0,25L / 0,75L',
-        layout: 'list',
-        items: [
-          { code: '108', name: 'Still', price: '2,90 / 6,50' },
-          { code: '109', name: 'Sprudel', price: '2,90 / 6,50' }
-        ]
-      },
-      {
-        title: 'Soft Drinks',
-        note: '0,2L / 0,4L',
-        layout: 'list',
-        items: [
-          { code: '110', name: 'Coca Cola', price: '3,00 / 4,50' },
-          { code: '111', name: 'Coca Cola Zero', price: '3,00 / 4,50' },
-          { code: '112', name: 'Sprite', price: '3,00 / 4,50' },
-          { code: '113', name: 'Apfelsaft', price: '3,50' },
-          { code: '114', name: 'Maracuja-Nektar', price: '3,50' },
-          { code: '115', name: 'Mango-Nektar', price: '3,50' },
-          { code: '116', name: 'Saftschorle', sub: '(Apfel, Maracuja, Mango)', price: '3,20 / 4,90' },
-          { code: '117', name: 'Schweppes Tonic Water', sub: '(Fl. 0,2L)', price: '3,50' },
-          { code: '118', name: 'Red Bull Energy Drink', sub: '(0,25L)', price: '3,50' }
-        ]
-      }
-    ]
+    kicker: 'Soft Drinks',
+    lede: 'Coca Cola, Sprite und Cola Zero in der 1-Liter-Flasche.',
+    groups: [{
+      title: 'Soft Drinks', layout: 'list',
+      items: [
+        { code: '190', name: 'COCA COLA', desc: 'Fl. 1 Liter', price: '4,90' },
+        { code: '191', name: 'SPRITE', desc: 'Fl. 1 Liter', price: '4,90' },
+        { code: '192', name: 'COLA ZERO', desc: 'Fl. 1 Liter', price: '4,90' }
+      ]
+    }]
   },
-
   {
     id: 'menu-cat-13',
-    title: 'Bier, Aperitifs & Wein',
-    kicker: 'Bar',
-    lede: 'Vom Fass, aus Asien und aus deutschen sowie italienischen Weinlagen.',
-    hero: 'quan-06.jpg',
-    heroCover: true,
-    groups: [
-      {
-        title: 'Biere',
-        layout: 'list',
-        items: [
-          { code: '201', name: 'Krombacher Pils vom Fass', price: 'a. 0,3L 3,90 | b. 0,4L 4,90' },
-          { code: '202', name: 'Alsterwasser', price: 'a. 0,3L 3,90 | b. 0,4L 4,90' },
-          { code: '203', name: 'Krombacher Alkoholfrei', price: 'Fl. 0,33L 3,90' },
-          { code: '204', name: 'Erdinger Hefe Hell', price: 'Fl. 0,5L 5,50' },
-          { code: '205', name: 'Erdinger Alkoholfrei', price: 'Fl. 0,5L 5,50' },
-          { code: '206', name: 'Saigon Beer', sub: '(Vietnam)', price: 'Fl. 0,33L 4,50' },
-          { code: '207', name: 'Singha Beer', sub: '(Thailand)', price: 'Fl. 0,33L 4,50' },
-          { code: '208', name: 'Asahi Super Dry', sub: '(Japan)', price: 'Fl. 0,33L 4,50' }
-        ]
-      },
-      {
-        title: 'Sake',
-        note: 'Japan',
-        layout: 'list',
-        items: [
-          { code: '209', name: 'Ozeki Sake', sub: '(warm / kalt) 200ml', desc: 'Ideal zu Sushi & Bento' }
-        ]
-      },
-      {
-        title: 'Aperitifs',
-        layout: 'list',
-        items: [
-          { code: '211', name: 'Lillet Wild Berry', price: '7,90', desc: 'Lillet Blanc · Wild Berry Schweppes · Himbeeren' },
-          { code: '212', name: 'Hugo', price: '7,90', desc: 'Holunderblüte · Prosecco · Limette · Minze · Soda' },
-          { code: '213', name: 'Aperol Spritz', price: '8,50', desc: 'Aperol · Prosecco · Soda · Orangenscheibe' },
-          { code: '214', name: 'YUZU SPRITZ', price: '8,50', desc: 'Kiyoko Yuzu · Prosecco · Soda' },
-          { code: '215', name: 'MIONETTO SPUMANTE VIVO', price: '8,50', desc: 'Glas 0,1L 3,50 | Fl. 0,75L 22,00' }
-        ]
-      },
-      {
-        title: 'Long Drinks',
-        layout: 'list',
-        items: [
-          { code: '221', name: 'Gin Tonic', price: '7,50', desc: 'Gin · Tonic Water · Limette' },
-          { code: '222', name: 'Cuba Libre', price: '7,50', desc: 'Holunderblüte · Prosecco · Limette · Minze · Soda' },
-          { code: '223', name: 'Whiskey Cola', price: '7,50', desc: 'Jack Daniel’s Old No. 7 · Cola · Limette' },
-          { code: '224', name: 'Lychee Indochine', price: '9,50', desc: 'Gin · Lychee · Himbeere · Tonic Water' }
-        ]
-      },
-      {
-        title: 'Cocktails',
-        layout: 'list',
-        items: [
-          { code: '241', name: 'Mojito', price: '8,00', desc: 'Weißer Rum · frische Minze · Limette · Rohrzucker · Soda' },
-          { code: '242', name: 'Paloma', price: '9,90', desc: 'Tequila · Campari · Limette · Grapefruit · Tonic Water' },
-          { code: '243', name: 'Margarita', price: '10,90', desc: 'Tequila Blanco · Cointreau · frischer Limettensaft · Salzrand' },
-          { code: '244', name: 'Espresso Martini', price: '10,90', desc: 'Vodka · Kahlúa · frischer Espresso' }
-        ]
-      },
-      {
-        title: 'Spirituosen',
-        note: '2 cl',
-        layout: 'list',
-        items: [
-          { code: '231', name: 'Jägermeister', price: '3,50' },
-          { code: '232', name: 'Ramazzotti Amaro', price: '3,50' },
-          { code: '233', name: 'Tequila Blanco', price: '3,50' },
-          { code: '234', name: 'Havana Club 3 Años', price: '3,50' },
-          { code: '235', name: 'Absolut Vodka', price: '3,50' },
-          { code: '236', name: 'Jack Daniel’s Old No.7', price: '3,50' },
-          { code: '237', name: 'Nep Moi', price: '3,50', desc: 'Vietnamesischer Reisschnaps' },
-          { code: '238', name: 'Bambusschnaps', price: '3,90', desc: 'Mit feinen Bambusnoten' }
-        ]
-      },
-      {
-        title: 'Weißwein',
-        layout: 'list',
-        items: [
-          { code: '261', name: 'Weinschorle', price: '5,90', desc: 'Glas 0,2L' },
-          { code: '262', name: 'Grauburgunder trocken', price: 'a. Glas 0,2L 6,90 | b. Fl. 0,75L 23,90', desc: 'Markus Pfaffmann · Pfalz · Deutschland' },
-          { code: '263', name: 'Sauvignon Blanc trocken', price: 'a. Glas 0,2L 7,50 | b. Fl. 0,75L 25,00', desc: 'Markus Pfaffmann · Pfalz · Deutschland · Tropische Früchte – frisch, ausgewogen, mit feinwürziger Frucht' },
-          { code: '264', name: 'Dr. Loosen Riesling trocken', price: 'a. Glas 0,2L 7,90 | b. Fl. 0,75L 26,00', desc: 'Mosel · Deutschland · Feine Rieslingsäure, kristallklar, elegant, lebendig – fruchtig-mineralisch' }
-        ]
-      },
-      {
-        title: 'Roséwein',
-        layout: 'list',
-        items: [
-          { code: '265', name: 'Roséschorle', price: '5,90', desc: 'Glas 0,2L' },
-          { code: '266', name: 'Pink Vineyard Cuvée trocken', price: 'a. Glas 0,2L 7,50 | b. Fl. 0,75L 25,00', desc: 'Markus Pfaffmann · Pfalz · Deutschland · Granatapfel, Kirsche, Hagebutte – saftig, elegant, leicht spritzig' }
-        ]
-      },
-      {
-        title: 'Rotwein',
-        layout: 'list',
-        items: [
-          { code: '267', name: 'Cecchi Chianti DOCG trocken', price: 'a. Glas 0,2L 7,50 | b. Fl. 0,75L 25,00', desc: 'Toskana · Italien · Markant, fruchtig, nachhaltig – harmonisch am Gaumen' },
-          { code: '268', name: 'Primitivo di Manduria Zolla trocken', price: 'a. Glas 0,2L 7,90 | b. Fl. 0,75L 26,00', desc: 'Apulien · Italien · Dunkle Beeren, Pflaumen, mediterrane Würze – samtig, langes Finale' }
-        ]
-      }
-    ]
+    title: 'Biere',
+    kicker: 'Flaschenbiere',
+    lede: 'Biere aus Deutschland, Vietnam, Thailand und Japan.',
+    groups: [{
+      title: 'Biere', layout: 'list',
+      items: [
+        { code: '203', name: 'KROMBACHER ALKOHOLFREI', desc: 'Fl. 0,33L', price: '3,90' },
+        { code: '204', name: 'ERDINGER HEFE HELL', desc: 'Fl. 0,5L', price: '5,50' },
+        { code: '205', name: 'ERDINGER ALKOHOLFREI', desc: 'Fl. 0,5L', price: '5,50' },
+        { code: '206', name: 'SAIGON BEER', sub: '(Vietnam)', desc: 'Fl. 0,33L', price: '4,50' },
+        { code: '207', name: 'SINGHA BEER', sub: '(Thailand)', desc: 'Fl. 0,33L', price: '4,50' },
+        { code: '208', name: 'ASAHI SUPER DRY', sub: '(Japan)', desc: 'Fl. 0,33L', price: '4,50' }
+      ]
+    }]
   }
 ];
 
-const MENU_FOOTNOTE = ['🌱 vegetarisch / 🌿 vegan', 'Alle Preise in Euro.'];
+const MENU_FOOTNOTE = [
+  '🌿 vegetarisch / vegan', 'Alle Preise in Euro.',
+  'Allergene: A. Glutenhaltiges Getreide · B. Krebstiere · C. Eier · D. Fisch · E. Erdnüsse · F. Soja · G. Milch / Laktose · H. Schalenfrüchte · I. Sellerie · J. Senf · K. Sesam · L. Schwefeldioxid / Sulfite · M. Lupinen · N. Weichtiere · O. Surimi (Krebsfleischimitat aus Fisch)',
+  'Einige unserer Soßen können Spuren von Weizen, Soja und Sesam enthalten. Bitte sprechen Sie unser Servicepersonal an, wenn Sie Allergien oder besondere Wünsche haben.'
+];
