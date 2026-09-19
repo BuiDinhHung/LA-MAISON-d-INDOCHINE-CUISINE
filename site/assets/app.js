@@ -45,13 +45,34 @@ menuScroller?.addEventListener('wheel', event => {
   event.preventDefault();
   menuScroller.scrollBy({ left: delta, behavior: 'smooth' });
 }, { passive: false });
+// Nur die Kategorieleiste waagerecht bewegen. scrollIntoView() würde auch die
+// Seite selbst scrollen und damit den laufenden Sprung zur angeklickten
+// Kategorie abbrechen – die Karte blieb dann an der ersten Kategorie stehen.
+const centerNavLink = link => {
+  if (!menuScroller || !link) return;
+  const item = link.getBoundingClientRect();
+  const track = menuScroller.getBoundingClientRect();
+  const delta = (item.left + item.width / 2) - (track.left + track.width / 2);
+  if (Math.abs(delta) > 1) menuScroller.scrollBy({ left: delta, behavior: 'smooth' });
+};
+
 const activeMenuCategory = new IntersectionObserver(entries => entries.forEach(entry => {
   if (!entry.isIntersecting) return;
   const activeLink = menuLinks.find(link => link.hash === `#${entry.target.id}`);
   menuLinks.forEach(link => link.classList.toggle('is-active', link === activeLink));
-  activeLink?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  centerNavLink(activeLink);
 }), { rootMargin: '-25% 0px -65%' });
 document.querySelectorAll('.menu-category').forEach(section => activeMenuCategory.observe(section));
+
+// Die Kategorieleiste ist unterschiedlich hoch (einzeilig am Desktop, zweizeilig
+// am Handy). Ihre echte Höhe steuert den Absprungpunkt der Kategorie-Anker.
+const menuNav = document.querySelector('.full-menu-nav');
+const measureMenuNav = () => document.documentElement.style.setProperty(
+  '--menu-nav-h', `${Math.round(menuNav.getBoundingClientRect().height)}px`);
+if (menuNav) {
+  measureMenuNav();
+  new ResizeObserver(measureMenuNav).observe(menuNav);
+}
 
 const galleryImages = [...document.querySelectorAll('.gallery img')];
 const lightbox = document.querySelector('.lightbox');

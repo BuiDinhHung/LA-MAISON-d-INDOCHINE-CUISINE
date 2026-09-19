@@ -103,6 +103,7 @@ Bốn yêu cầu: thêm số điện thoại bấm gọi được, đánh lại 
 | `site/index.html` | Thêm số điện thoại `+49 40 55617657` dưới dạng link `tel:` ở bốn chỗ: mục Öffnungszeiten, danh sách Kontakt, nút "Anrufen" và footer |
 | `site/assets/site.css` | Thêm class `.tel` cho link điện thoại (màu vàng, gạch chân mảnh, không xuống dòng giữa số) |
 | `site/assets/menu-data.js` | Đánh lại mã Vorspeisen 11–19 → 10–18; xóa món 90 KEM (EIS); món 91 CHUOI CHIEN đổi giá và mô tả; sửa lede danh mục Dessert |
+| `site/assets/app.js` | Sửa lỗi bấm vào danh mục không cuộn tới đúng mục; đo chiều cao thật của thanh danh mục vào biến `--menu-nav-h` |
 | `MENU-UPDATE.md` | Báo cáo này |
 
 ## Nội dung đã thay / xóa
@@ -112,6 +113,16 @@ Bốn yêu cầu: thêm số điện thoại bấm gọi được, đánh lại 
 - Xóa món 90 KEM (EIS) khỏi danh mục Dessert.
 - Món 91 CHUOI CHIEN: giá 6,50 € → 5,50 €; mô tả bỏ "Sesam und Vanilleeis", còn "Knusprig gebackene Banane mit Honig".
 - Lede danh mục Dessert đổi từ "warm, kalt oder beides" thành "warm serviert, zum Abschluss" vì sau khi bỏ món 90 không còn món lạnh nào.
+
+## Sửa lỗi cuộn tới danh mục
+
+Bấm vào một mục trên thanh danh mục (Wok, Sushi Klassiker, Dessert...) thì trang gần như đứng yên thay vì cuộn tới đúng mục.
+
+- **Nguyên nhân:** `IntersectionObserver` theo dõi danh mục đang xem gọi `activeLink.scrollIntoView()` để kéo mục đang active vào giữa thanh danh mục. `scrollIntoView()` cuộn mọi khung cha, kể cả chính trang. Khi trang bắt đầu cuộn mượt tới danh mục được bấm, nó đi qua danh mục đầu tiên, observer bắn, `scrollIntoView()` chạy và **hủy** cú cuộn đang chạy. Trang dừng ngay tại danh mục đầu tiên. Đo ở 1440 px: bấm Dessert thì mục còn cách viewport 14.048 px.
+- **Cách sửa:** thay bằng hàm `centerNavLink()` chỉ gọi `menuScroller.scrollBy()` — cuộn ngang đúng thanh danh mục, không đụng tới cuộn dọc của trang.
+- **Lỗi thứ hai đi kèm:** điểm dừng lệch. `html` có `scroll-padding-top` (nav + 12px) và `.menu-category` có `scroll-margin-top: calc(var(--nav-h) + 62px)` — hai giá trị cộng dồn nên mục dừng thấp hơn ~91 px, chừa một khoảng trống lớn; số 62px lại là ước lượng cứng, sai khi thanh danh mục xuống hai dòng ở màn hình dưới 700 px. Nay `app.js` đo chiều cao thật của thanh bằng `ResizeObserver` và ghi vào `--menu-nav-h`, CSS chỉ dùng biến đó.
+
+Sau khi sửa, cả 13 danh mục dừng cách thanh danh mục 12–13 px, tiêu đề luôn hiện đủ, đúng ở 1920 / 1440 / 900 / 768 / 390 / 320 px, cả khi kéo đổi kích thước cửa sổ lẫn khi mở thẳng bằng link `#menu-cat-11`.
 
 ## Điểm cần chủ quán xác nhận
 
@@ -123,3 +134,4 @@ Bốn yêu cầu: thêm số điện thoại bấm gọi được, đánh lại 
 
 - `node tests/menu-check.cjs`: đạt, 113 mục menu.
 - `node tests/ui-check.cjs`: đạt ở 1440, 768, 390, 320 px. Nhãn nút gọi rút ngắn còn "Anrufen" vì nhãn kèm số làm tràn trang ở 320 px (`.btn` có `white-space:nowrap`).
+- Bấm lần lượt cả 13 mục trên thanh danh mục ở 6 khổ màn hình, có bật cuộn mượt: mục nào cũng dừng đúng, không mục nào bị thanh danh mục che tiêu đề.
