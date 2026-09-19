@@ -122,29 +122,29 @@ const MENU = [
         title: 'Klassische Vorspeisen',
         layout: 'list',
         items: [
-          { code: '11', name: 'GOI CUON', sub: '(Sommerrollen – 2 Stk.)', img: 'dish-goi-cuon.webp', star: true,
+          { code: '10', name: 'GOI CUON', sub: '(Sommerrollen – 2 Stk.)', img: 'dish-goi-cuon.webp', star: true,
             desc: 'Frische Sommerrollen mit Reisnudeln, Salat und Koriander, dazu hausgemachte Hoisin-Sauce, wahlweise mit:',
             variants: [['a) Hähnchen', '5,90'], ['b) Garnelen', '6,50']] },
-          { code: '12', name: 'NEM HANOI', sub: '(2 Stk.)', price: '5,90', img: 'dish-nem-ran.webp',
+          { code: '11', name: 'NEM HANOI', sub: '(2 Stk.)', price: '5,90', img: 'dish-nem-ran.webp',
             desc: 'Traditionelle vietnamesische Frühlingsrollen im knusprigen Reispapier mit Hähnchen, Garnelen, Glasnudeln und Gemüse, dazu hausgemachtes Nuoc-Cham-Dip' },
-          { code: '13', name: 'THAI CHICKEN SATAY', sub: '(2 Spieße)', price: '6,90', img: 'dish-06.webp',
+          { code: '12', name: 'THAI CHICKEN SATAY', sub: '(2 Spieße)', price: '6,90', img: 'dish-06.webp',
             desc: 'Satay Hähnchenspieße in Erdnuss Soße' },
-          { code: '14', name: 'EBI TEMPURA', sub: '(3 Stk.)', price: '6,50',
+          { code: '13', name: 'EBI TEMPURA', sub: '(3 Stk.)', price: '6,50',
             desc: 'Knusprig ausgebackene Garnelen im Tempura-Teig' },
-          { code: '15', name: 'BO LA LOT', price: '6,50',
+          { code: '14', name: 'BO LA LOT', price: '6,50',
             desc: 'Eingelegtes Rinderhackfleisch mit Zitronengras, in Wildbetelblättern gewickelt und gegrillt' },
-          { code: '16', name: 'YAKITORI', sub: '(3 Spieße)', price: '5,90',
+          { code: '15', name: 'YAKITORI', sub: '(3 Spieße)', price: '5,90',
             desc: 'Hähnchenspieße mit Teriyaki-Soße' },
-          { code: '17', name: 'CRISPY WANTAN', sub: '(4 Stk.)', price: '5,90',
+          { code: '16', name: 'CRISPY WANTAN', sub: '(4 Stk.)', price: '5,90',
             desc: 'Hausgemachte Wantans gefüllt mit Hähnchen und Garnelen, dazu hausgemachter Dip' },
-          { code: '18', name: 'BANH PHONG TOM', price: '3,50', desc: 'Krabbenchips' }
+          { code: '17', name: 'BANH PHONG TOM', price: '3,50', desc: 'Krabbenchips' }
         ]
       },
       {
         title: 'Frische Vorspeisen',
         layout: 'cards',
         items: [
-          { code: '19', name: 'NOM XU HAO', sub: '(leicht scharf)', tags: ['spicy'],
+          { code: '18', name: 'NOM XU HAO', sub: '(leicht scharf)', tags: ['spicy'],
             desc: 'Frischer vietnamesischer Salat aus fein geschnittenem Kohlrabi und Karotten mit Koriander und gerösteten Erdnüssen, verfeinert mit einem Fisch-Limetten-Dressing, wahlweise mit:',
             variants: [['a) Hähnchen', '6,90'], ['b) Garnelen', '8,50']] }
         ]
@@ -473,7 +473,7 @@ const MENU = [
     id: 'menu-cat-11',
     title: 'Dessert',
     kicker: 'Zum Abschluss',
-    lede: 'Süßes aus Vietnam – warm, kalt oder beides.',
+    lede: 'Süßes aus Vietnam – warm serviert, zum Abschluss.',
     hero: 'quan-06.jpg',
     heroCover: true,
     groups: [
@@ -481,8 +481,7 @@ const MENU = [
         title: 'Dessert',
         layout: 'list',
         items: [
-          { code: '90', name: 'KEM (EIS)', allergens: 'G', price: '5,90', desc: 'Drei Kugeln Eis: Vanille · Erdbeere · Schokolade' },
-          { code: '91', name: 'CHUOI CHIEN', allergens: 'A,G,K', price: '6,50', img: 'dish-chuoi-chien.webp', desc: 'Knusprig gebackene Banane mit Honig, Sesam und Vanilleeis' },
+          { code: '91', name: 'CHUOI CHIEN', allergens: 'A,G,K', price: '5,50', img: 'dish-chuoi-chien.webp', desc: 'Knusprig gebackene Banane mit Honig' },
           { code: '92', name: 'XOI XOAI', allergens: 'K', price: '6,90', desc: 'Warmer Klebreis mit aromatischer Kokosmilch, geröstetem Sesam und Mango' }
         ]
       }

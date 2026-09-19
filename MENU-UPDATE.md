@@ -89,3 +89,37 @@ S61–S65 đều có Frischkäse. Giá platter được thay bằng nhóm GG m�
 - **Mã Mittag đã chốt:** giữ M10 Sushi Mix và M11 Poké Bowl theo PDF và website gốc. Không áp dụng M11→M10 vì sẽ trùng mã; không có M12–M19 trong source. M7 MI XAO RAU đã được xóa theo yêu cầu.
 - Ảnh Bento 4 đã được nhận và gắn đúng như mô tả ở trên. Các ảnh đánh dấu ở cuộc trò chuyện trước không được đính kèm trong phiên này, nên chỉ xử lý các mục được liệt kê rõ trong yêu cầu văn bản.
 - `site/index-original.html` là file lưu trữ có sẵn, chưa được Git theo dõi và không được sửa. Nó còn nội dung lịch sử, không phải nguồn trang chính. Các danh mục không nằm trong yêu cầu thay đổi được giữ nguyên; đây không phải lần đồng bộ toàn bộ mọi món trong PDF.
+
+---
+
+# Cập nhật menu La Maison — 19/09/2026
+
+Bốn yêu cầu: thêm số điện thoại bấm gọi được, đánh lại số món Vorspeisen, bỏ món 90, sửa món 91.
+
+## File đã sửa
+
+| File | Thay đổi |
+| --- | --- |
+| `site/index.html` | Thêm số điện thoại `+49 40 55617657` dưới dạng link `tel:` ở bốn chỗ: mục Öffnungszeiten, danh sách Kontakt, nút "Anrufen" và footer |
+| `site/assets/site.css` | Thêm class `.tel` cho link điện thoại (màu vàng, gạch chân mảnh, không xuống dòng giữa số) |
+| `site/assets/menu-data.js` | Đánh lại mã Vorspeisen 11–19 → 10–18; xóa món 90 KEM (EIS); món 91 CHUOI CHIEN đổi giá và mô tả; sửa lede danh mục Dessert |
+| `MENU-UPDATE.md` | Báo cáo này |
+
+## Nội dung đã thay / xóa
+
+- Số điện thoại `00494055617657` được hiển thị dạng quốc tế `+49 40 55617657`, link `tel:+494055617657` để bấm gọi trên điện thoại. Nút "Anrufen" là nút vàng chính trong section Kontakt; "Route öffnen" chuyển thành nút viền vì gọi điện mới là hành động đặt bàn.
+- Vorspeisen đánh lại số: 11 GOI CUON → 10, 12 NEM HANOI → 11, 13 THAI CHICKEN SATAY → 12, 14 EBI TEMPURA → 13, 15 BO LA LOT → 14, 16 YAKITORI → 15, 17 CRISPY WANTAN → 16, 18 BANH PHONG TOM → 17, 19 NOM XU HAO → 18.
+- Xóa món 90 KEM (EIS) khỏi danh mục Dessert.
+- Món 91 CHUOI CHIEN: giá 6,50 € → 5,50 €; mô tả bỏ "Sesam und Vanilleeis", còn "Knusprig gebackene Banane mit Honig".
+- Lede danh mục Dessert đổi từ "warm, kalt oder beides" thành "warm serviert, zum Abschluss" vì sau khi bỏ món 90 không còn món lạnh nào.
+
+## Điểm cần chủ quán xác nhận
+
+- **Số 19 hiện đang trống.** Sau khi đánh lại, Vorspeisen kết thúc ở 18 và món kế tiếp là 20 EDAMAME. Yêu cầu chỉ nói 11–19 → 10–18 nên các mã từ 20 trở đi giữ nguyên.
+- **Allergen món 91 giữ nguyên `A,G,K`.** Mô tả không còn nhắc Sesam (K) và Vanilleeis (G), nhưng công thức thực tế có thể vẫn chứa hai chất này. Khai báo thừa thì an toàn, khai báo thiếu thì không, nên chưa tự ý bỏ. Cần chủ quán xác nhận trước khi sửa.
+- **Ảnh món 91 `dish-chuoi-chien.webp` vẫn có viên kem trong hình.** Nếu món không còn kèm kem thì cần thay ảnh.
+
+## Kiểm tra
+
+- `node tests/menu-check.cjs`: đạt, 113 mục menu.
+- `node tests/ui-check.cjs`: đạt ở 1440, 768, 390, 320 px. Nhãn nút gọi rút ngắn còn "Anrufen" vì nhãn kèm số làm tràn trang ở 320 px (`.btn` có `white-space:nowrap`).
