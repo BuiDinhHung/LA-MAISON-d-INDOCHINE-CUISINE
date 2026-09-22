@@ -17,6 +17,8 @@ process.chdir(require('node:path').join(__dirname, '..'));
     await page.waitForFunction(() => [...document.querySelectorAll('img[src]:not([src=""])')].every(img => img.complete));
     const imageErrors = await page.evaluate(() => [...document.querySelectorAll('img[src]:not([src=""])')].filter(img => !img.naturalWidth).map(img => img.src));
     assert.deepEqual(imageErrors, [], 'Undecodable images');
+    assert.equal(await page.locator('.quick-booking a').count(), 2, 'Two fixed booking actions must be available');
+    assert.equal(await page.locator('.quick-booking').evaluate(el => getComputedStyle(el).position), 'fixed');
     assert.equal(await page.locator('#menu-cat-2 img, #gallery img').count(), 0);
     if (width === 1440) {
       const menuScroller = page.locator('.full-menu-nav__scroll');
