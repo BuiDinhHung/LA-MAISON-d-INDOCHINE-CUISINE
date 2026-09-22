@@ -97,3 +97,104 @@ addEventListener('keydown', event => {
   if (event.key === 'ArrowLeft') showImage(imageIndex - 1);
   if (event.key === 'ArrowRight') showImage(imageIndex + 1);
 });
+
+/* Reservierung und Abholbestellung per WhatsApp */
+const WHATSAPP_NUMBER = '494055617657';
+const bookingTabs = [...document.querySelectorAll('.booking__tabs [role="tab"]')];
+const bookingForms = [...document.querySelectorAll('.booking-form')];
+const bookingMessage = document.querySelector('#booking-message');
+
+const setBookingMode = mode => {
+  bookingTabs.forEach(tab => {
+    const active = tab.dataset.form === mode;
+    tab.classList.toggle('is-active', active);
+    tab.setAttribute('aria-selected', active);
+  });
+  bookingForms.forEach(form => {
+    const active = form.dataset.kind === mode;
+    form.classList.toggle('is-active', active);
+    form.hidden = !active;
+  });
+  bookingMessage.classList.remove('is-visible');
+};
+
+bookingTabs.forEach(tab => tab.addEventListener('click', () => setBookingMode(tab.dataset.form)));
+document.querySelectorAll('[data-booking-mode]').forEach(link => link.addEventListener('click', () => {
+  setBookingMode(link.dataset.bookingMode);
+}));
+
+const today = new Date();
+const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+const firstOpenDay = new Date(today);
+if (firstOpenDay.getDay() === 2) firstOpenDay.setDate(firstOpenDay.getDate() + 1);
+const defaultDate = new Date(firstOpenDay.getTime() - firstOpenDay.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+document.querySelectorAll('.booking-form input[type="date"]').forEach(input => {
+  input.min = localToday;
+  if (!input.value) input.value = defaultDate;
+});
+
+const menuOptions = document.querySelector('#menu-dishes');
+if (menuOptions && typeof MENU !== 'undefined') {
+  const items = MENU.flatMap(category => category.groups.flatMap(group => group.items));
+  items.forEach(item => {
+    const option = document.createElement('option');
+    option.value = `${item.code ? `${item.code} · ` : ''}${item.name}`;
+    option.label = item.price ? `${item.price} €` : '';
+    menuOptions.append(option);
+  });
+}
+
+let orderRowCount = 1;
+document.querySelector('#add-order-item')?.addEventListener('click', () => {
+  orderRowCount += 1;
+  const row = document.createElement('div');
+  row.className = 'order-row order-row--added';
+  row.innerHTML = `<div class="field"><label for="order-item-${orderRowCount}">Gericht / Nummer</label><input id="order-item-${orderRowCount}" name="item" list="menu-dishes" required placeholder="Gericht suchen"></div><div class="field order-row__qty"><label for="order-qty-${orderRowCount}">Anzahl</label><input id="order-qty-${orderRowCount}" name="quantity" type="number" min="1" max="30" inputmode="numeric" value="1" required></div><button class="order-remove" type="button" aria-label="Gericht entfernen">×</button>`;
+  row.querySelector('.order-remove').addEventListener('click', () => row.remove());
+  document.querySelector('#order-rows').append(row);
+  row.querySelector('[name="item"]').focus();
+});
+
+const value = (form, name) => form.elements[name].value.trim();
+const dateLabel = date => new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(new Date(`${date}T12:00:00`));
+
+bookingForms.forEach(form => form.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+  if (new Date(`${value(form, 'date')}T12:00:00`).getDay() === 2) {
+    bookingMessage.textContent = 'Dienstag ist Ruhetag. Bitte wählen Sie einen anderen Tag.';
+    bookingMessage.classList.add('is-visible');
+    return;
+  }
+
+  const common = [`Name: ${value(form, 'name')}`, `Telefon: ${value(form, 'phone')}`];
+  let lines;
+  if (form.dataset.kind === 'reservation') {
+    lines = [
+      'Guten Tag, ich möchte einen Tisch reservieren:', '',
+      ...common,
+      `Datum: ${dateLabel(value(form, 'date'))}`,
+      `Uhrzeit: ${value(form, 'time')} Uhr`,
+      `Personen: ${value(form, 'guests')}`,
+      value(form, 'note') ? `Wünsche: ${value(form, 'note')}` : null
+    ];
+  } else {
+    const items = [...form.querySelectorAll('.order-row')].map(row => {
+      const dish = row.querySelector('[name="item"]').value.trim();
+      const quantity = row.querySelector('[name="quantity"]').value;
+      return `• ${quantity}× ${dish}`;
+    });
+    lines = [
+      'Guten Tag, ich möchte zur Abholung bestellen:', '',
+      ...common,
+      `Abholung: ${dateLabel(value(form, 'date'))}, ${value(form, 'time')} Uhr`, '',
+      'Bestellung:', ...items,
+      value(form, 'note') ? `Hinweise: ${value(form, 'note')}` : null
+    ];
+  }
+
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.filter(line => line !== null).join('\n'))}`;
+  window.open(url, '_blank', 'noopener');
+  bookingMessage.textContent = 'WhatsApp wurde geöffnet. Bitte senden Sie dort die vorbereitete Nachricht ab.';
+  bookingMessage.classList.add('is-visible');
+}));

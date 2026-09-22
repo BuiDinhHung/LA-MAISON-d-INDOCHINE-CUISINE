@@ -23,7 +23,7 @@
     <div class="nav__inner">
       <a class="nav__logo" href="#home" aria-label="Zur Startseite"><img src="assets/a033.webp" alt="La Maison d’Indochine"><span>La Maison d’Indochine</span></a>
       <nav class="nav__links" aria-label="Hauptnavigation"><a href="#about">Über uns</a><a href="#menu">Speisekarte</a><a href="#gallery">Galerie</a><a href="#contact">Kontakt</a></nav>
-      <a class="btn btn--gold btn--sm" href="#contact">Reservieren</a>
+      <a class="btn btn--gold btn--sm" href="#booking" data-booking-mode="reservation">Reservieren</a>
       <button class="nav__burger" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
     </div>
   </header>
@@ -39,7 +39,7 @@
         </div>
         <div class="hero__aside reveal">
           <p class="hero__sub">In einem lebendigen Viertel ist ein Restaurant nicht nur ein Ort zum Essen. Es ist auch ein Treffpunkt für Nachbarn, Familien und Freunde.</p>
-          <div class="hero__cta"><a class="btn btn--gold" href="#contact">Jetzt reservieren</a><a class="btn btn--ghost" href="#menu">Speisekarte entdecken</a></div>
+          <div class="hero__cta"><a class="btn btn--gold" href="#booking" data-booking-mode="reservation">Jetzt reservieren</a><a class="btn btn--ghost" href="#menu">Speisekarte entdecken</a></div>
           <div class="hero__facts" aria-label="Restaurant Informationen"><span><b>Mittagstisch</b> Mo–Fr</span><span><b>Adresse</b> Bekassinenau 67</span><span><b>Küche</b> Vietnamesisch · Asiatisch</span></div>
         </div>
       </div>
@@ -94,6 +94,7 @@
         <p class="eyebrow">Die vollständige Karte</p>
         <h2 class="title">Alle Gerichte & Getränke</h2>
         <p class="lede">Alle Kategorien mit Beschreibungen, Preisen und ausgewählten Originalfotos – von den Vorspeisen über Sushi und Bento bis zur Kinderkarte, zum Dessert und zur Getränkekarte. Nach vegetarischen oder scharfen Gerichten filterbar.</p>
+        <a class="btn btn--gold menu-order-cta" href="#booking" data-booking-mode="order">Gerichte per WhatsApp bestellen</a>
       </div>
       <div id="full-menu-content"></div>
     </section>
@@ -101,6 +102,66 @@
     <section class="section section--paper" id="gallery">
       <div class="shell">
         <div class="reveal gallery-heading"><div><p class="eyebrow">Atmosphäre</p><h2 class="title">Ein Haus für<br>gute Abende.</h2></div><p class="gallery-heading__note">Warme Lichter, Holz und ein Hauch von Indochina.</p></div>
+      </div>
+    </section>
+
+    <section class="section booking" id="booking">
+      <div class="shell booking__grid">
+        <div class="booking__intro reveal">
+          <p class="eyebrow">Einfach per WhatsApp</p>
+          <h2 class="title">Tisch oder Lieblings&shy;gericht?</h2>
+          <p class="lede intro-copy">Senden Sie Ihre Reservierung oder Abholbestellung direkt an uns. Wir melden uns zur Bestätigung per WhatsApp.</p>
+          <figure class="booking__image"><img src="assets/quan-08.jpg" alt="Gedeckter Tisch im La Maison d’Indochine" loading="lazy"></figure>
+          <p class="booking__note"><span aria-hidden="true">✓</span> Verbindlich nach unserer Bestätigung</p>
+        </div>
+
+        <div class="booking__panel reveal">
+          <div class="booking__tabs" role="tablist" aria-label="Anfrage auswählen">
+            <button class="is-active" type="button" role="tab" aria-selected="true" aria-controls="reservation-form" id="reservation-tab" data-form="reservation">Tisch reservieren</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="order-form" id="order-tab" data-form="order">Essen bestellen</button>
+          </div>
+
+          <form class="booking-form is-active" id="reservation-form" data-kind="reservation" aria-labelledby="reservation-tab">
+            <div class="booking-form__head"><span>01</span><div><h3>Tisch reservieren</h3><p>Ihre Anfrage wird über WhatsApp gesendet.</p></div></div>
+            <div class="form__row">
+              <div class="field"><label for="reservation-name">Name</label><input id="reservation-name" name="name" autocomplete="name" required placeholder="Ihr Name"></div>
+              <div class="field"><label for="reservation-phone">Telefon</label><input id="reservation-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Ihre Telefonnummer"></div>
+            </div>
+            <div class="form__row form__row--three">
+              <div class="field"><label for="reservation-date">Datum</label><input id="reservation-date" name="date" type="date" required></div>
+              <div class="field"><label for="reservation-time">Uhrzeit</label><input id="reservation-time" name="time" type="time" step="900" required></div>
+              <div class="field"><label for="reservation-guests">Personen</label><input id="reservation-guests" name="guests" type="number" min="1" max="30" inputmode="numeric" required value="2"></div>
+            </div>
+            <div class="field field--full"><label for="reservation-note">Wünsche <small>optional</small></label><textarea id="reservation-note" name="note" rows="3" placeholder="Kinderstuhl, Allergien oder weitere Wünsche"></textarea></div>
+            <button class="btn btn--gold whatsapp-submit" type="submit"><span aria-hidden="true">●</span> Reservierung per WhatsApp senden</button>
+          </form>
+
+          <form class="booking-form" id="order-form" data-kind="order" aria-labelledby="order-tab" hidden>
+            <div class="booking-form__head"><span>02</span><div><h3>Zur Abholung bestellen</h3><p>Gericht wählen oder Nummer aus der Karte eingeben.</p></div></div>
+            <div class="form__row">
+              <div class="field"><label for="order-name">Name</label><input id="order-name" name="name" autocomplete="name" required placeholder="Ihr Name"></div>
+              <div class="field"><label for="order-phone">Telefon</label><input id="order-phone" name="phone" type="tel" autocomplete="tel" required placeholder="Ihre Telefonnummer"></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="order-date">Abholdatum</label><input id="order-date" name="date" type="date" required></div>
+              <div class="field"><label for="order-time">Abholzeit</label><input id="order-time" name="time" type="time" step="900" required></div>
+            </div>
+            <fieldset class="order-items">
+              <legend>Ihre Bestellung</legend>
+              <div class="order-row">
+                <div class="field"><label for="order-item-1">Gericht / Nummer</label><input id="order-item-1" name="item" list="menu-dishes" required placeholder="z. B. 40A · PHO BO"></div>
+                <div class="field order-row__qty"><label for="order-qty-1">Anzahl</label><input id="order-qty-1" name="quantity" type="number" min="1" max="30" inputmode="numeric" value="1" required></div>
+              </div>
+              <div id="order-rows"></div>
+              <button class="order-add" type="button" id="add-order-item">+ Weiteres Gericht</button>
+            </fieldset>
+            <datalist id="menu-dishes"></datalist>
+            <div class="field field--full"><label for="order-note">Hinweise <small>optional</small></label><textarea id="order-note" name="note" rows="3" placeholder="Soße, Schärfegrad, Allergien oder weitere Wünsche"></textarea></div>
+            <button class="btn btn--gold whatsapp-submit" type="submit"><span aria-hidden="true">●</span> Bestellung per WhatsApp senden</button>
+          </form>
+          <p class="booking__privacy">WhatsApp öffnet mit Ihrer fertigen Nachricht. Erst nach dem Absenden erhält das Restaurant Ihre Anfrage.</p>
+          <p class="form__msg" id="booking-message" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
@@ -116,7 +177,7 @@
             <li><b>Telefon</b><span><a class="tel" href="tel:+494055617657">+49 40 55617657</a></span></li>
             <li><b>Öffnungszeiten</b><span>Mo–Fr 11:30–14:30 · 16:30–22:00<br>Sa 12:00–22:00 · So &amp; Feiertage 12:00–22:00<br>Dienstag Ruhetag</span></li>
           </ul>
-          <div class="contact__actions"><a class="btn btn--gold" href="tel:+494055617657">Anrufen</a><a class="btn btn--ghost" href="https://maps.google.com/?q=Bekassinenau+67+22147+Hamburg">Route öffnen</a><a class="btn btn--ghost" href="#menu">Speisekarte ansehen</a></div>
+          <div class="contact__actions"><a class="btn btn--gold" href="#booking" data-booking-mode="reservation">Reservieren &amp; bestellen</a><a class="btn btn--ghost" href="tel:+494055617657">Anrufen</a><a class="btn btn--ghost" href="https://maps.google.com/?q=Bekassinenau+67+22147+Hamburg">Route öffnen</a></div>
         </div>
         <div class="contact__media reveal">
           <figure class="contact__image"><img src="assets/quan-10.jpg" alt="La Maison d’Indochine in Hamburg" loading="lazy"></figure>
