@@ -99,7 +99,7 @@ addEventListener('keydown', event => {
 });
 
 /* Reservierung und Abholbestellung per WhatsApp */
-const WHATSAPP_NUMBER = '494055617657';
+const WHATSAPP_NUMBER = '491739268345';
 const bookingTabs = [...document.querySelectorAll('.booking__tabs [role="tab"]')];
 const bookingForms = [...document.querySelectorAll('.booking-form')];
 const bookingMessage = document.querySelector('#booking-message');
@@ -134,25 +134,112 @@ document.querySelectorAll('.booking-form input[type="date"]').forEach(input => {
 });
 
 const menuOptions = document.querySelector('#menu-dishes');
-if (menuOptions && typeof MENU !== 'undefined') {
-  const items = MENU.flatMap(category => category.groups.flatMap(group => group.items));
-  items.forEach(item => {
-    const option = document.createElement('option');
-    option.value = `${item.code ? `${item.code} · ` : ''}${item.name}`;
-    option.label = item.price ? `${item.price} €` : '';
-    menuOptions.append(option);
+const orderForm = document.querySelector('#order-form');
+const menuCart = document.querySelector('#menu-cart');
+const menuCatalog = new Map();
+const priceToCents = price => Math.round(Number(price.replace('.', '').replace(',', '.')) * 100);
+const formatEuros = cents => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(cents / 100);
+const addToCatalog = (label, price) => menuCatalog.set(label, { price, cents: priceToCents(price) });
+
+if (typeof MENU !== 'undefined') {
+  MENU.flatMap(category => category.groups.flatMap(group => group.items)).forEach(item => {
+    const baseLabel = `${item.code ? `${item.code} · ` : ''}${item.name}`;
+    if (item.price) addToCatalog(baseLabel, item.price);
+    item.variants?.forEach(([variant, price]) => addToCatalog(`${baseLabel} — ${variant}`, price));
   });
 }
 
+document.querySelectorAll('.lunch__item').forEach(item => {
+  const code = item.querySelector('.lunch__num')?.textContent.trim();
+  const heading = item.querySelector('.lunch__copy h4');
+  const price = heading?.querySelector('span')?.textContent.replace('€', '').trim();
+  if (!code || !heading || !price) return;
+  const name = [...heading.childNodes].filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent).join('').trim();
+  const label = `${code} · ${name}`;
+  addToCatalog(label, price);
+  const button = document.createElement('button');
+  button.className = 'menu-add';
+  button.type = 'button';
+  button.dataset.orderLabel = label;
+  button.dataset.orderPrice = price;
+  button.textContent = '+ Bestellen';
+  button.setAttribute('aria-label', `${label} für ${price} Euro hinzufügen`);
+  item.querySelector('.lunch__copy').append(button);
+});
+
+menuCatalog.forEach(({ price }, label) => {
+  const option = document.createElement('option');
+  option.value = label;
+  option.label = `${price} €`;
+  menuOptions?.append(option);
+});
+
 let orderRowCount = 1;
-document.querySelector('#add-order-item')?.addEventListener('click', () => {
+const addOrderRow = (label = '', quantity = 1) => {
   orderRowCount += 1;
   const row = document.createElement('div');
   row.className = 'order-row order-row--added';
-  row.innerHTML = `<div class="field"><label for="order-item-${orderRowCount}">Gericht / Nummer</label><input id="order-item-${orderRowCount}" name="item" list="menu-dishes" required placeholder="Gericht suchen"></div><div class="field order-row__qty"><label for="order-qty-${orderRowCount}">Anzahl</label><input id="order-qty-${orderRowCount}" name="quantity" type="number" min="1" max="30" inputmode="numeric" value="1" required></div><button class="order-remove" type="button" aria-label="Gericht entfernen">×</button>`;
-  row.querySelector('.order-remove').addEventListener('click', () => row.remove());
+  row.innerHTML = `<div class="field"><label for="order-item-${orderRowCount}">Gericht / Nummer</label><input id="order-item-${orderRowCount}" name="item" list="menu-dishes" required placeholder="Gericht suchen"></div><div class="field order-row__qty"><label for="order-qty-${orderRowCount}">Anzahl</label><input id="order-qty-${orderRowCount}" name="quantity" type="number" min="1" max="30" inputmode="numeric" value="${quantity}" required></div><button class="order-remove" type="button" aria-label="Gericht entfernen">×</button>`;
+  row.querySelector('[name="item"]').value = label;
+  row.querySelector('.order-remove').addEventListener('click', () => {
+    row.remove();
+    updateOrderTotal();
+  });
   document.querySelector('#order-rows').append(row);
+  return row;
+};
+
+const orderSummary = () => [...orderForm.querySelectorAll('.order-row')].reduce((summary, row) => {
+  const label = row.querySelector('[name="item"]').value.trim();
+  const quantity = Number(row.querySelector('[name="quantity"]').value) || 0;
+  if (!label || quantity < 1) return summary;
+  summary.count += quantity;
+  summary.total += (menuCatalog.get(label)?.cents || 0) * quantity;
+  return summary;
+}, { count: 0, total: 0 });
+
+function updateOrderTotal() {
+  const { count, total } = orderSummary();
+  const countLabel = `${count} Artikel`;
+  document.querySelector('#order-total-count').textContent = countLabel;
+  document.querySelector('#order-total-value').textContent = formatEuros(total);
+  document.querySelector('#menu-cart-count').textContent = countLabel;
+  document.querySelector('#menu-cart-total').textContent = formatEuros(total);
+  menuCart.hidden = count === 0;
+  document.body.classList.toggle('has-menu-cart', count > 0);
+}
+
+const addMenuItem = (label, price) => {
+  if (!menuCatalog.has(label)) addToCatalog(label, price);
+  const rows = [...orderForm.querySelectorAll('.order-row')];
+  const existing = rows.find(row => row.querySelector('[name="item"]').value.trim() === label);
+  if (existing) {
+    const quantity = existing.querySelector('[name="quantity"]');
+    quantity.value = Math.min(30, Number(quantity.value) + 1);
+  } else {
+    const empty = rows.find(row => !row.querySelector('[name="item"]').value.trim());
+    if (empty) empty.querySelector('[name="item"]').value = label;
+    else addOrderRow(label);
+  }
+  updateOrderTotal();
+};
+
+document.querySelector('#add-order-item')?.addEventListener('click', () => {
+  const row = addOrderRow();
   row.querySelector('[name="item"]').focus();
+});
+
+orderForm?.addEventListener('input', updateOrderTotal);
+document.addEventListener('click', event => {
+  const button = event.target.closest('.menu-add');
+  if (!button) return;
+  addMenuItem(button.dataset.orderLabel, button.dataset.orderPrice);
+  button.classList.add('is-added');
+  button.textContent = '✓ Hinzugefügt';
+  setTimeout(() => {
+    button.classList.remove('is-added');
+    button.textContent = '+ Bestellen';
+  }, 1100);
 });
 
 const value = (form, name) => form.elements[name].value.trim();
@@ -179,16 +266,20 @@ bookingForms.forEach(form => form.addEventListener('submit', event => {
       value(form, 'note') ? `Wünsche: ${value(form, 'note')}` : null
     ];
   } else {
+    let total = 0;
     const items = [...form.querySelectorAll('.order-row')].map(row => {
       const dish = row.querySelector('[name="item"]').value.trim();
       const quantity = row.querySelector('[name="quantity"]').value;
-      return `• ${quantity}× ${dish}`;
+      const entry = menuCatalog.get(dish);
+      if (entry) total += entry.cents * Number(quantity);
+      return `• ${quantity}× ${dish}${entry ? ` — ${formatEuros(entry.cents * Number(quantity))}` : ''}`;
     });
     lines = [
       'Guten Tag, ich möchte zur Abholung bestellen:', '',
       ...common,
       `Abholung: ${dateLabel(value(form, 'date'))}, ${value(form, 'time')} Uhr`, '',
       'Bestellung:', ...items,
+      total ? `Gesamtsumme: ${formatEuros(total)}` : null,
       value(form, 'note') ? `Hinweise: ${value(form, 'note')}` : null
     ];
   }

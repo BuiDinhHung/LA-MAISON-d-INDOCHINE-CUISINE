@@ -38,9 +38,20 @@
     allergens(item.allergens)
   ].join('');
 
+  const orderLabel = (item, variant) => [
+    item.code ? `${item.code} · ` : '',
+    item.name,
+    variant ? ` — ${variant}` : ''
+  ].join('');
+
+  const orderButton = (item, itemPrice, variant = '') => {
+    const label = orderLabel(item, variant);
+    return `<button class="menu-add" type="button" data-order-label="${esc(label)}" data-order-price="${esc(itemPrice)}" aria-label="${esc(label)} für ${esc(itemPrice)} Euro hinzufügen">+ Bestellen</button>`;
+  };
+
   const variants = item => item.variants?.length
     ? `<ul class="variants">${item.variants.map(([label, price, codes]) =>
-        `<li><span>${esc(label)} ${allergens(codes)}</span><b>${esc(price)} €</b></li>`).join('')}</ul>`
+        `<li><span>${esc(label)} ${allergens(codes)}</span><b>${esc(price)} €</b>${orderButton(item, price, label)}</li>`).join('')}</ul>`
     : '';
 
   const contents = item => item.contents?.length
@@ -71,6 +82,7 @@
       ${item.desc ? `<p class="row__desc">${esc(item.desc)}</p>` : ''}
       ${contents(item)}
       ${variants(item)}
+      ${item.price ? `<div class="row__order">${orderButton(item, item.price)}</div>` : ''}
     </div>
   </article>`;
 

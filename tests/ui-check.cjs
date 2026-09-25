@@ -44,6 +44,11 @@ process.chdir(require('node:path').join(__dirname, '..'));
       assert(activeNavPosition.visible, 'Active Sushi Sets & Bento link must scroll into view');
       await page.locator('.full-menu-nav').screenshot({path:'tmp/qa/1440-menu-nav-sushi.png'});
 
+      await page.locator('.row').filter({hasText: 'PHO BO'}).locator('.menu-add').first().click();
+      await page.waitForFunction(() => !document.querySelector('#menu-cart').hidden);
+      assert.equal(await page.locator('#menu-cart-count').textContent(), '1 Artikel');
+      assert.equal(await page.locator('#menu-cart-total').textContent(), '15,90 €');
+
       await page.locator('#booking').scrollIntoViewIfNeeded();
       await page.evaluate(() => { window.open = url => { window.__whatsappUrl = url; }; });
       await page.locator('#reservation-name').fill('Max Mustermann');
@@ -51,7 +56,7 @@ process.chdir(require('node:path').join(__dirname, '..'));
       await page.locator('#reservation-time').fill('19:00');
       await page.locator('#reservation-form button[type="submit"]').click();
       const reservationUrl = await page.evaluate(() => window.__whatsappUrl);
-      assert(reservationUrl.startsWith('https://wa.me/494055617657?text='));
+      assert(reservationUrl.startsWith('https://wa.me/491739268345?text='));
       assert(decodeURIComponent(reservationUrl).includes('Tisch reservieren'));
 
       await page.locator('#order-tab').click();
@@ -65,9 +70,10 @@ process.chdir(require('node:path').join(__dirname, '..'));
       await page.locator('#order-form button[type="submit"]').click();
       const orderUrl = await page.evaluate(() => window.__whatsappUrl);
       const orderMessage = decodeURIComponent(orderUrl);
-      assert(orderUrl.startsWith('https://wa.me/494055617657?text='));
+      assert(orderUrl.startsWith('https://wa.me/491739268345?text='));
       assert(orderMessage.includes('1× 40A · PHO BO'));
       assert(orderMessage.includes('2× S43 · LA MAISON ROLL'));
+      assert(orderMessage.includes('Gesamtsumme: 31,70 €'));
       await page.locator('#booking').screenshot({path:'tmp/qa/1440-booking.png', style:'.nav,.full-menu-nav,.totop{visibility:hidden !important}'});
     }
     const bento4 = page.locator('.row').filter({hasText: 'BENTO 4'});

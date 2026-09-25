@@ -111,6 +111,7 @@
           <p class="eyebrow">Einfach per WhatsApp</p>
           <h2 class="title">Tisch oder Lieblings&shy;gericht?</h2>
           <p class="lede intro-copy">Senden Sie Ihre Reservierung oder Abholbestellung direkt an uns. Wir melden uns zur Bestätigung per WhatsApp.</p>
+          <p class="booking__whatsapp">WhatsApp <a href="https://wa.me/491739268345">0173 9268345</a></p>
           <figure class="booking__image"><img src="assets/quan-08.jpg" alt="Gedeckter Tisch im La Maison d’Indochine" loading="lazy"></figure>
           <p class="booking__note"><span aria-hidden="true">✓</span> Verbindlich nach unserer Bestätigung</p>
         </div>
@@ -157,6 +158,7 @@
             </fieldset>
             <datalist id="menu-dishes"></datalist>
             <div class="field field--full"><label for="order-note">Hinweise <small>optional</small></label><textarea id="order-note" name="note" rows="3" placeholder="Soße, Schärfegrad, Allergien oder weitere Wünsche"></textarea></div>
+            <div class="order-total" id="order-total"><span>Gesamtsumme <small id="order-total-count">0 Artikel</small></span><strong id="order-total-value">0,00 €</strong></div>
             <button class="btn btn--gold whatsapp-submit" type="submit"><span aria-hidden="true">●</span> Bestellung per WhatsApp senden</button>
           </form>
           <p class="booking__privacy">WhatsApp öffnet mit Ihrer fertigen Nachricht. Erst nach dem Absenden erhält das Restaurant Ihre Anfrage.</p>
@@ -195,6 +197,10 @@
     <a href="#booking" data-booking-mode="reservation"><span aria-hidden="true">◇</span>Tisch reservieren</a>
     <a class="quick-booking__order" href="#booking" data-booking-mode="order"><span aria-hidden="true">●</span>Essen bestellen</a>
   </nav>
+  <aside class="menu-cart" id="menu-cart" aria-live="polite" hidden>
+    <div><small>Ihre Bestellung</small><strong><span id="menu-cart-count">0 Artikel</span> · <span id="menu-cart-total">0,00 €</span></strong></div>
+    <a class="btn btn--gold btn--sm" href="#booking" data-booking-mode="order">Bestellung prüfen</a>
+  </aside>
   <button class="totop" type="button" aria-label="Zum Seitenanfang">↑</button>
   <div class="lightbox" role="dialog" aria-modal="true" aria-label="Bildansicht"><button class="lightbox__close" aria-label="Schließen">×</button><button class="lightbox__prev" aria-label="Vorheriges Bild">‹</button><img src="" alt=""><button class="lightbox__next" aria-label="Nächstes Bild">›</button></div>
   <script src="assets/menu-data.js"></script>
