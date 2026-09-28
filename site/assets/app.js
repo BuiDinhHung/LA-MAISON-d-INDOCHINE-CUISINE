@@ -244,12 +244,25 @@ document.addEventListener('click', event => {
 
 const value = (form, name) => form.elements[name].value.trim();
 const dateLabel = date => new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(new Date(`${date}T12:00:00`));
+const isWithinOpeningHours = (day, time) => {
+  const minutes = time.split(':').reduce((hours, part) => hours * 60 + Number(part));
+  const periods = day === 0 || day === 6 ? [[720, 1320]] : [[690, 870], [990, 1320]];
+  return periods.some(([open, close]) => minutes >= open && minutes <= close);
+};
 
 bookingForms.forEach(form => form.addEventListener('submit', event => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  if (new Date(`${value(form, 'date')}T12:00:00`).getDay() === 2) {
+  const day = new Date(`${value(form, 'date')}T12:00:00`).getDay();
+  if (day === 2) {
     bookingMessage.textContent = 'Dienstag ist Ruhetag. Bitte wählen Sie einen anderen Tag.';
+    bookingMessage.classList.add('is-visible');
+    return;
+  }
+  if (!isWithinOpeningHours(day, value(form, 'time'))) {
+    bookingMessage.textContent = day === 0 || day === 6
+      ? 'Bitte wählen Sie eine Uhrzeit zwischen 12:00 und 22:00 Uhr.'
+      : 'Bitte wählen Sie eine Uhrzeit zwischen 11:30–14:30 oder 16:30–22:00 Uhr.';
     bookingMessage.classList.add('is-visible');
     return;
   }
