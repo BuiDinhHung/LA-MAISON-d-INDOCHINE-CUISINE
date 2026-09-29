@@ -139,7 +139,9 @@ const menuCart = document.querySelector('#menu-cart');
 const menuCatalog = new Map();
 const priceToCents = price => Math.round(Number(price.replace('.', '').replace(',', '.')) * 100);
 const formatEuros = cents => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(cents / 100);
-const addToCatalog = (label, price) => menuCatalog.set(label, { price, cents: priceToCents(price) });
+// Abholrabatt gilt für die ganze Karte, nicht für den Mittagstisch (M1–M10).
+const PICKUP_DISCOUNT = 0.1;
+const addToCatalog = (label, price, lunch = false) => menuCatalog.set(label, { price, cents: priceToCents(price), lunch });
 
 if (typeof MENU !== 'undefined') {
   MENU.flatMap(category => category.groups.flatMap(group => group.items)).forEach(item => {
@@ -156,7 +158,7 @@ document.querySelectorAll('.lunch__item').forEach(item => {
   if (!code || !heading || !price) return;
   const name = [...heading.childNodes].filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent).join('').trim();
   const label = `${code} · ${name}`;
-  addToCatalog(label, price);
+  addToCatalog(label, price, true);
   const button = document.createElement('button');
   button.className = 'menu-add';
   button.type = 'button';
@@ -189,18 +191,30 @@ const addOrderRow = (label = '', quantity = 1) => {
   return row;
 };
 
-const orderSummary = () => [...orderForm.querySelectorAll('.order-row')].reduce((summary, row) => {
-  const label = row.querySelector('[name="item"]').value.trim();
-  const quantity = Number(row.querySelector('[name="quantity"]').value) || 0;
-  if (!label || quantity < 1) return summary;
-  summary.count += quantity;
-  summary.total += (menuCatalog.get(label)?.cents || 0) * quantity;
+const orderSummary = () => {
+  const summary = [...orderForm.querySelectorAll('.order-row')].reduce((summary, row) => {
+    const label = row.querySelector('[name="item"]').value.trim();
+    const quantity = Number(row.querySelector('[name="quantity"]').value) || 0;
+    if (!label || quantity < 1) return summary;
+    const entry = menuCatalog.get(label);
+    const cents = (entry?.cents || 0) * quantity;
+    summary.count += quantity;
+    summary.subtotal += cents;
+    if (entry && !entry.lunch) summary.discountable += cents;
+    return summary;
+  }, { count: 0, subtotal: 0, discountable: 0 });
+  summary.discount = Math.round(summary.discountable * PICKUP_DISCOUNT);
+  summary.total = summary.subtotal - summary.discount;
   return summary;
-}, { count: 0, total: 0 });
+};
 
 function updateOrderTotal() {
-  const { count, total } = orderSummary();
+  const { count, subtotal, discount, total } = orderSummary();
   const countLabel = `${count} Artikel`;
+  const breakdown = document.querySelector('#order-breakdown');
+  breakdown.hidden = discount === 0;
+  document.querySelector('#order-subtotal-value').textContent = formatEuros(subtotal);
+  document.querySelector('#order-discount-value').textContent = `−${formatEuros(discount)}`;
   document.querySelector('#order-total-count').textContent = countLabel;
   document.querySelector('#order-total-value').textContent = formatEuros(total);
   document.querySelector('#menu-cart-count').textContent = countLabel;
@@ -279,20 +293,21 @@ bookingForms.forEach(form => form.addEventListener('submit', event => {
       value(form, 'note') ? `Wünsche: ${value(form, 'note')}` : null
     ];
   } else {
-    let total = 0;
+    const { subtotal, discountable, discount, total } = orderSummary();
     const items = [...form.querySelectorAll('.order-row')].map(row => {
       const dish = row.querySelector('[name="item"]').value.trim();
       const quantity = row.querySelector('[name="quantity"]').value;
       const entry = menuCatalog.get(dish);
-      if (entry) total += entry.cents * Number(quantity);
       return `• ${quantity}× ${dish}${entry ? ` — ${formatEuros(entry.cents * Number(quantity))}` : ''}`;
     });
     lines = [
       'Guten Tag, ich möchte zur Abholung bestellen:', '',
       ...common,
       `Abholung: ${dateLabel(value(form, 'date'))}, ${value(form, 'time')} Uhr`, '',
-      'Bestellung:', ...items,
-      total ? `Gesamtsumme: ${formatEuros(total)}` : null,
+      'Bestellung:', ...items, '',
+      discount ? `*Zwischensumme:* ${formatEuros(subtotal)}` : null,
+      discount ? `*10 % Abholrabatt:* −${formatEuros(discount)}${subtotal > discountable ? ' (ohne Mittagstisch)' : ''}` : null,
+      subtotal ? `*Gesamtsumme: ${formatEuros(total)}*` : null,
       value(form, 'note') ? `Hinweise: ${value(form, 'note')}` : null
     ];
   }

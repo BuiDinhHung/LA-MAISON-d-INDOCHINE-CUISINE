@@ -196,6 +196,56 @@ const MENU = [
   },
 
   {
+    id: 'menu-cat-vegan',
+    title: 'Vegane Spezialitäten',
+    kicker: 'Frisch · pflanzlich · aromatisch',
+    lede: 'Unsere neuen veganen Currys und Wokgerichte – mit Tofu, veganem Hähnchen, knuspriger veganer Ente oder veganen Garnelen.',
+    groups: [
+      {
+        title: 'Vegane Currys',
+        note: 'Alle Gerichte werden mit Duftreis serviert',
+        layout: 'cards',
+        items: [
+          { code: '50', name: 'ROTES CURRY', sub: '(leicht scharf)', img: 'vegan-rotes-curry.webp', tags: ['veg', 'spicy'],
+            desc: 'Feines rotes Thai-Curry mit Kokosmilch, frischem Gemüse, Bambus, Paprika, Zucchini und Thai-Basilikum.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '51', name: 'GRÜNES CURRY', img: 'vegan-gruenes-curry.webp', tags: ['veg', 'spicy'],
+            desc: 'Würziges grünes Thai-Curry mit Kokosmilch, frischem Gemüse, Bambus, Zucchini, Paprika und Thai-Basilikum.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '52', name: 'PANANG CURRY', img: 'vegan-panang-curry.webp', tags: ['veg'],
+            desc: 'Cremiges Panang-Curry mit Kokosmilch, Erdnüssen, frischem Gemüse und feiner Würze.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '53', name: 'GELBES CURRY', img: 'vegan-gelbes-curry.webp', tags: ['veg'],
+            desc: 'Mildes gelbes Curry mit Kokosmilch, frischem Gemüse, Kartoffeln, Karotten, Paprika und feiner Würze.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '54', name: 'MASSAMAN CURRY', img: 'vegan-massaman-curry.webp', tags: ['veg'],
+            desc: 'Mildes, aromatisches Curry mit Kokosmilch, Kartoffeln, Karotten, Zwiebeln, Erdnüssen und feinen Gewürzen.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] }
+        ]
+      },
+      {
+        title: 'Vegane Wokgerichte',
+        note: 'Frisch aus dem Wok',
+        layout: 'cards',
+        items: [
+          { code: '60', name: 'VEGAN TERIYAKI', img: 'vegan-teriyaki.webp', tags: ['veg'],
+            desc: 'Frisches Gemüse mit veganer Teriyaki-Sauce und Duftreis.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '61', name: 'VEGAN CHOP SUEY', img: 'vegan-chop-suey.webp', tags: ['veg'],
+            desc: 'Frisches Wok-Gemüse mit veganer Chop-Suey-Sauce und Duftreis.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '62', name: 'VEGAN UDON TERIYAKI', img: 'vegan-udon-teriyaki.webp', tags: ['veg'],
+            desc: 'Gebratene Udon-Nudeln mit frischem Gemüse und veganer Teriyaki-Sauce.',
+            variants: [['a) Tofu', '14,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] },
+          { code: '63', name: 'VEGAN SỐT ME', sub: '(mild, leicht süß-sauer)', img: 'vegan-sot-me.webp', tags: ['veg'],
+            desc: 'Frisches Gemüse in hausgemachter Tamarinden-Sauce, mit Duftreis.',
+            variants: [['a) Tofu', '13,90', 'F'], ['b) Veganes Hähnchen', '15,90', 'A,F'], ['c) Knusprige vegane Ente', '17,90', 'A,F'], ['d) Vegane Garnelen', '18,90', 'A,F']] }
+        ]
+      }
+    ]
+  },
+
+  {
     id: 'menu-cat-5',
     title: 'Indochine Wok',
     kicker: 'Spezialitäten aus dem Wok',

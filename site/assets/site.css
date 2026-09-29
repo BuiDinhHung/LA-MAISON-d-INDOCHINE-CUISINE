@@ -999,6 +999,12 @@ ul{margin:0;padding:0;list-style:none}
 .order-remove{display:grid;place-items:center;width:38px;height:47px;border:1px solid var(--line);border-radius:10px;color:var(--text-dim);font-size:24px;line-height:1;transition:border-color .2s,color .2s}
 .order-remove:hover{border-color:var(--amber);color:var(--cream)}
 .order-add{margin-top:14px;padding:8px 0;color:var(--gold);font-family:var(--serif);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--line-strong)}
+.order-breakdown{display:grid;gap:8px;margin:22px 0 0}
+.order-breakdown div{display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.order-breakdown dt{color:var(--text-dim);font-size:13px}
+.order-breakdown dt small{margin-left:6px;font-size:11px}
+.order-breakdown dd{margin:0;color:var(--cream);font-variant-numeric:tabular-nums;white-space:nowrap}
+.order-breakdown[hidden]{display:none}
 .order-total{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:22px;padding:16px 0;border-block:1px solid var(--line-strong)}
 .order-total>span{color:var(--cream);font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .order-total small{display:block;margin-top:3px;color:var(--text-dim);font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:.02em;text-transform:none}

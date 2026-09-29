@@ -61,6 +61,12 @@ assert.deepEqual(drinks.map(item => [item.code, item.price]), [
   ['204', '5,50'], ['205', '5,50'], ['206', '4,50'], ['207', '4,50'], ['208', '4,50']
 ]);
 assert.deepEqual(items.filter(item => /^GG/.test(item.code)).map(item => item.price), ['21,90', '21,90', '45,00', '85,00']);
+const vegan = categories.find(category => category.id === 'menu-cat-vegan');
+assert(vegan, 'Missing vegan menu category');
+const veganItems = vegan.groups.flatMap(group => group.items);
+assert.deepEqual(veganItems.map(item => item.code), ['50', '51', '52', '53', '54', '60', '61', '62', '63']);
+assert(veganItems.every(item => item.tags.includes('veg') && item.img && item.variants.length === 4));
+assert.equal(veganItems.find(item => item.code === '62').variants[0][1], '14,90');
 const bento = items.find(item => item.name === 'BENTO 4');
 assert.equal(bento.price, '23,50');
 assert.equal(bento.img, 'bento-4.jpg');
